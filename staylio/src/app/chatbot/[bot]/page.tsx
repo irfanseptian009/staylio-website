@@ -12,6 +12,7 @@ function Chatbot() {
   const [input, setInput] = useState<string>("");
 
   // Hotel context information
+
   const hotelContext: string = `
     You are an AI customer support agent for the Grand Paradise Hotel, a luxurious beachfront resort located in Bali, Indonesia. 
 

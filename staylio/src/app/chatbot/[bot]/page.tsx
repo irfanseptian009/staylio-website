@@ -1,5 +1,4 @@
-"use client"; // Ensure client-side rendering
-
+"use client";
 import { useState } from "react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 

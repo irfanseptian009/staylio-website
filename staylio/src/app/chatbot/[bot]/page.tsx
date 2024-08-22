@@ -1,14 +1,19 @@
-"use client";
+"use client"; // Ensure client-side rendering
 
 import { useState } from "react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-function Chatbot() {
-  const [messages, setMessages] = useState([]);
-  const [input, setInput] = useState("");
+interface Message {
+  role: "user" | "model";
+  text: string;
+}
 
-  // Tambahkan informasi spesifik hotel di sini
-  const hotelContext = `
+function Chatbot() {
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [input, setInput] = useState<string>("");
+
+  // Hotel context information
+  const hotelContext: string = `
     You are an AI customer support agent for the Grand Paradise Hotel, a luxurious beachfront resort located in Bali, Indonesia. 
 
     **Hotel Information**
@@ -42,6 +47,12 @@ function Chatbot() {
     setMessages([...messages, { role: "user", text: input }]);
     setInput("");
 
+    if (!process.env.NEXT_PUBLIC_API_KEY) {
+      throw new Error(
+        "NEXT_PUBLIC_API_KEY is not defined. Please check your environment variables."
+      );
+    }
+
     const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_API_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
@@ -50,14 +61,15 @@ function Chatbot() {
       parts: [{ text: message.text }],
     }));
 
+    const adjustedHistory =
+      chatHistory.length > 0 ? chatHistory : [{ role: "user", parts: [{ text: input }] }];
+
     const chat = model.startChat({
-      history: [{ role: "system", parts: [{ text: hotelContext }] }] // Tambahkan konteks hotel di awal
-        .concat(chatHistory)
-        .concat({ role: "user", parts: [{ text: input }] }),
+      history: adjustedHistory,
     });
 
     try {
-      let result = await chat.sendMessage(input);
+      const result = await chat.sendMessage(input);
       setMessages([
         ...messages,
         { role: "user", text: input },
@@ -68,41 +80,11 @@ function Chatbot() {
     }
   }
 
-  async function sendMessage() {
-    if (input.trim() === "") return;
-
-    setMessages([...messages, { role: "user", text: input }]);
-    setInput("");
-
-    const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_API_KEY);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-
-    const chatHistory = messages.map((message) => ({
-      role: message.role,
-      parts: [{ text: message.text }],
-    }));
-
-    const chat = model.startChat({
-      history: chatHistory.concat({ role: "user", parts: [{ text: input }] }),
-    });
-
-    try {
-      let result = await chat.sendMessage(input);
-      setMessages([
-        ...messages,
-        { role: "user", text: input },
-        { role: "model", text: result.response.text() },
-      ]);
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  }
-
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInput(event.target.value);
   };
 
-  const handleKeyPress = (event) => {
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       sendMessage();
     }

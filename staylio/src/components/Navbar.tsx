@@ -6,7 +6,7 @@ import Image from 'next/image';
 function Navbar() {
   return (
     <div className="sticky top-0 z-50">
-      <div className="navbar bg-base-100 py-4 px-6">
+      <div className="navbar bg-base-100 py-4 px-10">
         <div className="navbar-start flex items-center">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -51,7 +51,7 @@ function Navbar() {
           </ul>
         </div>
         <div className="navbar-end">
-          <Link href="/button-page" className="btn">Button</Link>
+          <Link href="/button-page" className="btn flex justify-center items-center px-10 py-4 h-14 bg-[#FE6927] hover:bg-[#D9581F] hover:border-white  rounded-2xl text-white font-semibold">Sign In</Link>
         </div>
       </div>
     </div>

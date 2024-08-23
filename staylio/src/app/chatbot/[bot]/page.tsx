@@ -11,7 +11,7 @@ function Chatbot() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState<string>("");
 
-  // Hotel context information
+  // Hotel context informations
 
   const hotelContext: string = `Anda adalah agen dukungan pelanggan AI untuk sebuah hotel, tersedia 24/7 untuk membantu tamu. Peran Anda adalah menjawab pertanyaan umum, memberikan informasi tentang fasilitas hotel, dan membantu pertanyaan terkait pemesanan. Bersikaplah sopan, ringkas, dan membantu. Di bawah ini adalah beberapa topik yang mungkin Anda temui, beserta saran respons, setiap mengetik pertama kali jawab dengan memperkenalkan kamu bahwa kamu seorang agen dukungan pelanggan chatbot untuk sebuah aplikasi hotel yang bernama staylio.
 

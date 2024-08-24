@@ -63,7 +63,7 @@ export function LocComboBox() {
             : "Select Destination"}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[320px] p-0 bg-white border border-gray-300">
+      <PopoverContent className="2xl:w-[320px] lg:w-[220px] p-0 bg-white border border-gray-300">
         <Command>
           <CommandInput placeholder="Search destination..." className="text-black" />
           <CommandList>

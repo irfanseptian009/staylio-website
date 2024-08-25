@@ -4,7 +4,7 @@ import * as z from "zod";
 import axios from "axios";
 
 import { useState } from "react";
-import { useStoreModal } from "@/hooks/use-store-modal";
+import { useHotelModal } from "@/hooks/use-hotel-modal";
 import Modal from "../ui/modal";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -24,10 +24,10 @@ const formSchema = z.object({
   name: z.string().min(1),
 });
 
-export const StoreModal = () => {
+export const HotelModal = () => {
   const [loading, setLoading] = useState(false);
 
-  const storeModal = useStoreModal();
+  const HotelModal = useHotelModal();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -39,12 +39,12 @@ export const StoreModal = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       setLoading(true);
-      const response = await axios.post("/api/stores", values);
+      const response = await axios.post("/api/hotels", values);
       console.log(response.data);
-      toast.success("Berhasil membuat toko");
+      toast.success("success create hotel");
       window.location.assign(`/${response.data.id}`);
     } catch (error) {
-      toast.error("Gagal Membuat Toko");
+      toast.error("failed create hotel");
     } finally {
       setLoading(false);
     }
@@ -52,10 +52,10 @@ export const StoreModal = () => {
 
   return (
     <Modal
-      title="Buat Store"
-      description="Tambahkan Store untuk membuat produk dan kategori"
-      isOpen={storeModal.isOpen}
-      onClose={storeModal.onClose}
+      title="Create Hotel"
+      description="Add Hotel for create room and category"
+      isOpen={HotelModal.isOpen}
+      onClose={HotelModal.onClose}
     >
       <div>
         <div className="space-y-4 py-2 pb-4">
@@ -68,14 +68,14 @@ export const StoreModal = () => {
                   <FormItem>
                     <FormLabel>Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Nama Toko" {...field} disabled={loading} />
+                      <Input placeholder="Name Hotel" {...field} disabled={loading} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
               <div className="pt-6 space-x-2 flex items-center justify-end w-full">
-                <Button disabled={loading} variant="outline" onClick={storeModal.onClose}>
+                <Button disabled={loading} variant="outline" onClick={HotelModal.onClose}>
                   Cancel
                 </Button>
                 <Button disabled={loading} type="submit">

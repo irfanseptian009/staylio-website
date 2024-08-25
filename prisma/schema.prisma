@@ -13,7 +13,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Store {
+model Hotel {
   id      String    @id @default(uuid())
   name    String
   userId  String
@@ -26,21 +26,21 @@ model Store {
 
 model Banner {
   id      String @id @default(uuid())
-  storeId String
-  store   Store @relation("StoreToBanner", fields: [storeId], references: [id])
+  hotelId String
+  hotel   Hotel @relation("StoreToBanner", fields: [hotelId], references: [id])
   label   String
   imageUrl  String
   categories  Category[]
   createdAt DateTime  @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([storeId])
+  @@index([hotelId])
 }
 
 model Category {
   id      String @id @default(uuid())
-  storeId String
-  store   Store @relation("StoreToCategory", fields: [storeId], references: [id])
+  hotelId String
+  hotel   Hotel @relation("StoreToCategory", fields: [hotelId], references: [id])
   bannerId  String
   banner Banner @relation(fields: [bannerId], references: [id])
   products  Product[] @relation("CategoryToProduct")
@@ -48,14 +48,14 @@ model Category {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([storeId])
+  @@index([hotelId])
   @@index([bannerId])
 }
 
 model Product {
   id      String @id @default(uuid())
-  storeId String
-  store   Store @relation("StoreToProduct", fields: [storeId], references: [id])
+  hotelId String
+  hotel   Hotel @relation("StoreToProduct", fields: [hotelId], references: [id])
   categoryId  String
   category  Category @relation("CategoryToProduct", fields: [categoryId], references: [id])
   name    String
@@ -66,7 +66,7 @@ model Product {
   createdAt DateTime @default(now()) 
   updatedAt DateTime @updatedAt
 
-  @@index([storeId])
+  @@index([hotelId])
   @@index([categoryId])
 }
 

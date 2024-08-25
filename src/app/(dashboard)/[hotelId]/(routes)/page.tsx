@@ -1,17 +1,17 @@
 import db from "@/lib/db";
 
 interface DashboardPageProps {
-  params: { storeId: string };
+  params: { hotelId: string };
 }
 
 const DashboardPage = async ({ params }: DashboardPageProps) => {
-  const store = await db.store.findFirst({
+  const hotelId = await db.hotel.findFirst({
     where: {
-      id: params.storeId,
+      id: params.hotelId,
     },
   });
 
-  return <div>Active Store: {store?.name}</div>;
+  return <div>Active Hotel: {hotelId?.name}</div>;
 };
 
 export default DashboardPage;

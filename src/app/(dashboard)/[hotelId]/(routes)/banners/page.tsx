@@ -4,10 +4,10 @@ import { BannerColumn } from "./components/columns";
 
 import { format } from "date-fns";
 
-const BannersPage = async ({ params }: { params: { storeId: string } }) => {
+const BannersPage = async ({ params }: { params: { hotelId: string } }) => {
   const banners = await db.banner.findMany({
     where: {
-      storeId: params.storeId,
+      hotelId: params.hotelId,
     },
     orderBy: {
       createdAt: "desc",
@@ -30,3 +30,4 @@ const BannersPage = async ({ params }: { params: { storeId: string } }) => {
 };
 
 export default BannersPage;
+

@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import db from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 
-export async function POST(req: Request, { params }: { params: { storeId: string } }) {
+export async function POST(req: Request, { params }: { params: { hotelId: string } }) {
   try {
     const { userId } = auth();
     const body = await req.json();
@@ -21,13 +21,13 @@ export async function POST(req: Request, { params }: { params: { storeId: string
       return new NextResponse("Image banner perlu diinput", { status: 400 });
     }
 
-    if (!params.storeId) {
-      return new NextResponse("Store id URL dibutuhkan");
+    if (!params.hotelId) {
+      return new NextResponse("Hotel id URL dibutuhkan");
     }
 
-    const storeByUserId = await db.store.findFirst({
+    const storeByUserId = await db.hotel.findFirst({
       where: {
-        id: params.storeId,
+        id: params.hotelId,
         userId,
       },
     });
@@ -40,7 +40,7 @@ export async function POST(req: Request, { params }: { params: { storeId: string
       data: {
         label,
         imageUrl,
-        storeId: params.storeId,
+        hotelId: params.hotelId,
       },
     });
 
@@ -51,15 +51,15 @@ export async function POST(req: Request, { params }: { params: { storeId: string
   }
 }
 
-export async function GET(req: Request, { params }: { params: { storeId: string } }) {
+export async function GET(req: Request, { params }: { params: { hotelId: string } }) {
   try {
-    if (!params.storeId) {
-      return new NextResponse("Store id URL dibutuhkan");
+    if (!params.hotelId) {
+      return new NextResponse("Hotel id URL dibutuhkan");
     }
 
     const banner = await db.banner.findMany({
       where: {
-        storeId: params.storeId,
+        hotelId: params.hotelId,
       },
     });
 

@@ -8,21 +8,21 @@ export default async function DashboardLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: { storeId: string };
+  params: { hotelId: string };
 }) {
   const { userId } = auth();
   if (!userId) {
     redirect("/sign-in");
   }
 
-  const store = await db.store.findFirst({
+  const hotel = await db.hotel.findFirst({
     where: {
-      id: params.storeId,
+      id: params.hotelId,
       userId: userId,
     },
   });
 
-  if (!store) {
+  if (!hotel) {
     redirect("/");
   }
   return (

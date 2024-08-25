@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Store } from "@prisma/client";
+import { Hotel } from "@prisma/client";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import { useStoreModal } from "@/hooks/use-store-modal";
+import { useHotelModal } from "@/hooks/use-hotel-modal";
 import { useParams, useRouter } from "next/navigation";
 import { Button } from "./ui/button";
-import { Check, ChevronsUpDown, PlusCircle, Store as StoreIcon } from "lucide-react";
+import { Check, ChevronsUpDown, PlusCircle, Hotel as HotelIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   Command,
@@ -20,12 +20,12 @@ import {
 
 type PopoverTriggerProps = React.ComponentPropsWithoutRef<typeof PopoverTrigger>;
 
-interface StoreSwitcherProps extends PopoverTriggerProps {
-  items: Store[];
+interface HotelSwitcherProps extends PopoverTriggerProps {
+  items: Hotel[];
 }
 
-const StoreSwitcher = ({ className, items = [] }: StoreSwitcherProps) => {
-  const storeModal = useStoreModal();
+const HotelSwitcher = ({ className, items = [] }: HotelSwitcherProps) => {
+  const HotelModal = useHotelModal();
   const params = useParams();
   const router = useRouter();
 
@@ -34,13 +34,13 @@ const StoreSwitcher = ({ className, items = [] }: StoreSwitcherProps) => {
     value: item.id,
   }));
 
-  const currentStore = formattedItems.find((item) => item.value === params.storeId);
+  const currentHotel = formattedItems.find((item) => item.value === params.hotelId);
 
   const [open, setOpen] = useState(false);
 
-  const onStoreSelect = (store: { value: string; label: string }) => {
+  const onHotelSelect = (hotel: { value: string; label: string }) => {
     setOpen(false);
-    router.push(`/${store.value}`);
+    router.push(`/${hotel.value}`);
   };
 
   return (
@@ -54,8 +54,8 @@ const StoreSwitcher = ({ className, items = [] }: StoreSwitcherProps) => {
           aria-label="Pilih Toko"
           className={cn("w-[200px] justify-between", className)}
         >
-          <StoreIcon className="mr-2 h-4 w-4" />
-          {currentStore?.label}
+          <HotelIcon className="mr-2 h-4 w-4" />
+          {currentHotel?.label}
           <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -65,18 +65,18 @@ const StoreSwitcher = ({ className, items = [] }: StoreSwitcherProps) => {
             <CommandInput placeholder="Cari Toko" />
             <CommandEmpty>Toko Tidak Ditemukan</CommandEmpty>
             <CommandGroup heading="Toko">
-              {formattedItems.map((store) => (
+              {formattedItems.map((hotel) => (
                 <CommandItem
-                  key={store.value}
-                  onSelect={() => onStoreSelect(store)}
+                  key={hotel.value}
+                  onSelect={() => onHotelSelect(hotel)}
                   className="text-sm"
                 >
-                  <StoreIcon className="mr-2 h-4 w-4" />
-                  {store.label}
+                  <HotelIcon className="mr-2 h-4 w-4" />
+                  {hotel.label}
                   <Check
                     className={cn(
                       "ml-auto h-4 w-4",
-                      currentStore?.value === store.value ? "opacity-100" : "opacity-0"
+                      currentHotel?.value === hotel.value ? "opacity-100" : "opacity-0"
                     )}
                   />
                 </CommandItem>
@@ -89,7 +89,7 @@ const StoreSwitcher = ({ className, items = [] }: StoreSwitcherProps) => {
               <CommandItem
                 onSelect={() => {
                   setOpen(false);
-                  storeModal.onOpen();
+                  HotelModal.onOpen();
                 }}
               >
                 <PlusCircle className="mr-2 h-5 w-5" />
@@ -103,4 +103,4 @@ const StoreSwitcher = ({ className, items = [] }: StoreSwitcherProps) => {
   );
 };
 
-export default StoreSwitcher;
+export default HotelSwitcher;

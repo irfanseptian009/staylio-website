@@ -21,17 +21,21 @@ export const BannerClient: React.FC<BannerClientProps> = ({ data }) => {
   return (
     <>
       <div className="flex items-center justify-between">
-        <Heading title={`Banner (${data.length})`} description="Atur Banner Untuk Toko" />
-        <Button onClick={() => router.push(`/${params.storeId}/banners/new`)}>
+        <Heading
+          title={`Banner (${data.length})`}
+          description="setting banner for hotel"
+        />
+        <Button onClick={() => router.push(`/${params.hotelId}/banners/new`)}>
           <Plus className="mr-2 h-4 w-4" />
           Add New
         </Button>
       </div>
       <Separator />
       <DataTable data={data} columns={columns} searchKey="label" />
-      <Heading title="API" description="API untuk Banners" />
+      <Heading title="API" description="API for Banners" />
       <Separator />
       <ApiList namaIndikator="banners" idIndikator="bannerId" />
     </>
   );
 };
+

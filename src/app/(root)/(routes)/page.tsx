@@ -1,11 +1,11 @@
 "use client";
 
-import { useStoreModal } from "@/hooks/use-store-modal";
+import { useHotelModal } from "@/hooks/use-hotel-modal";
 import { useEffect } from "react";
 
 const SetupPage = () => {
-  const onOpen = useStoreModal((state) => state.onOpen);
-  const isOpen = useStoreModal((state) => state.isOpen);
+  const onOpen = useHotelModal((state) => state.onOpen);
+  const isOpen = useHotelModal((state) => state.isOpen);
 
   useEffect(() => {
     if (!isOpen) {

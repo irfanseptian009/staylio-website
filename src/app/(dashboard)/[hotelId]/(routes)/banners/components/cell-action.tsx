@@ -29,18 +29,18 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
 
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id);
-    toast.success("Banner Id berhasil di copy");
+    toast.success("Banner Id success to copy");
   };
 
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/${params.storeId}/banners/${data.id}`);
+      await axios.delete(`/api/${params.hotelId}/banners/${data.id}`);
       router.refresh();
-      router.push(`/${params.storeId}/banners`);
-      toast.success("Banner berhasil dihapus");
+      router.push(`/${params.hotelId}/banners`);
+      toast.success("Banner successfully deleted");
     } catch (error) {
-      toast.error("Cek kembali data dan koneksi mu");
+      toast.error("check your data connection");
     } finally {
       setLoading(false);
       setOpen(false);
@@ -69,7 +69,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
             Copy Id
           </DropdownMenuItem>
           <DropdownMenuItem
-            onClick={() => router.push(`/${params.storeId}/banners/${data.id}`)}
+            onClick={() => router.push(`/${params.hotelId}/banners/${data.id}`)}
           >
             <Edit className="mr-2 h-4 w-4" />
             Update

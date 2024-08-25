@@ -9,14 +9,14 @@ export default async function SetupLayout({ children }: { children: React.ReactN
     redirect("sign-in");
   }
 
-  const store = await db.store.findFirst({
+  const hotel = await db.hotel.findFirst({
     where: {
       userId,
     },
   });
 
-  if (store) {
-    redirect(`/${store.id}`);
+  if (hotel) {
+    redirect(`/${hotel.id}`);
   }
 
   return <>{children}</>;

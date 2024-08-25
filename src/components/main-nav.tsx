@@ -10,29 +10,29 @@ export function MainNav({ className, ...props }: React.HTMLAttributes<HTMLElemen
 
   const routes = [
     {
-      href: `/${params.storeId}`,
+      href: `/${params.hotelId}`,
       label: "Dashboard",
-      active: pathname === `/${params.storeId}`,
+      active: pathname === `/${params.hotelId}`,
     },
     {
-      href: `/${params.storeId}/banners`,
+      href: `/${params.hotelId}/banners`,
       label: "Banners",
-      active: pathname === `/${params.storeId}/banners`,
+      active: pathname === `/${params.hotelId}/banners`,
     },
     {
-      href: `/${params.storeId}/categories`,
+      href: `/${params.hotelId}/categories`,
       label: "Categories",
-      active: pathname === `/${params.storeId}/categories`,
+      active: pathname === `/${params.hotelId}/categories`,
     },
     {
-      href: `/${params.storeId}/products`,
-      label: "Products",
-      active: pathname === `/${params.storeId}/products`,
+      href: `/${params.hotelId}/products`,
+      label: "Room",
+      active: pathname === `/${params.hotelId}/products`,
     },
     {
-      href: `/${params.storeId}/settings`,
+      href: `/${params.hotelId}/settings`,
       label: "Settings",
-      active: pathname === `/${params.storeId}/settings`,
+      active: pathname === `/${params.hotelId}/settings`,
     },
   ];
 

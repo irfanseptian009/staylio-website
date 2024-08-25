@@ -2,7 +2,7 @@ import db from "@/lib/db";
 import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 
-export async function PATCH(req: Request, { params }: { params: { storeId: string } }) {
+export async function PATCH(req: Request, { params }: { params: { hotelId: string } }) {
   try {
     const { userId } = auth();
     const body = await req.json();
@@ -16,13 +16,13 @@ export async function PATCH(req: Request, { params }: { params: { storeId: strin
       return new NextResponse("Harus menginput nama", { status: 400 });
     }
 
-    if (!params.storeId) {
-      return new NextResponse("Store id dibutuhkan", { status: 400 });
+    if (!params.hotelId) {
+      return new NextResponse("Hotel id dibutuhkan", { status: 400 });
     }
 
-    const store = await db.store.updateMany({
+    const hotel = await db.hotel.updateMany({
       where: {
-        id: params.storeId,
+        id: params.hotelId,
         userId,
       },
       data: {
@@ -30,14 +30,14 @@ export async function PATCH(req: Request, { params }: { params: { storeId: strin
       },
     });
 
-    return NextResponse.json(store);
+    return NextResponse.json(hotel);
   } catch (error) {
     console.log("[STORE_PATCH]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
 
-export async function DELETE(req: Request, { params }: { params: { storeId: string } }) {
+export async function DELETE(req: Request, { params }: { params: { hotelId: string } }) {
   try {
     const { userId } = auth();
 
@@ -45,20 +45,21 @@ export async function DELETE(req: Request, { params }: { params: { storeId: stri
       return new NextResponse("Unauthenticated", { status: 401 });
     }
 
-    if (!params.storeId) {
-      return new NextResponse("Store id dibutuhkan", { status: 400 });
+    if (!params.hotelId) {
+      return new NextResponse("Hotel id dibutuhkan", { status: 400 });
     }
 
-    const store = await db.store.deleteMany({
+    const hotel = await db.hotel.deleteMany({
       where: {
-        id: params.storeId,
+        id: params.hotelId,
         userId,
       },
     });
 
-    return NextResponse.json(store);
+    return NextResponse.json(hotel);
   } catch (error) {
     console.log("[STORE_DELETE]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
+

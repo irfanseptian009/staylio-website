@@ -13,7 +13,7 @@ export const ApiList: React.FC<ApiListProps> = ({ namaIndikator, idIndikator }) 
   const params = useParams();
   const origin = useOrigin();
 
-  const baseUrl = `${origin}/api/${params.storeId}`;
+  const baseUrl = `${origin}/api/${params.hotelId}`;
 
   return (
     <>

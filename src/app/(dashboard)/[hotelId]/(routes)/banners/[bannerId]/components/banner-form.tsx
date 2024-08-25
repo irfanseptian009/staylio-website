@@ -45,10 +45,12 @@ export const BannerForm: React.FC<BannerFormProps> = ({ initialData }) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const title = initialData ? "Edit Banner" : "Buat Banner";
-  const description = initialData ? "Edit Banner Toko" : "Buat Banner Toko";
-  const toastMessage = initialData ? "Banner berhasil di edit" : "Banner berhasil dibuat";
-  const action = initialData ? "Simpan Banner" : "Buat Banner";
+  const title = initialData ? "Edit Banner" : "create Banner";
+  const description = initialData ? "Edit Banner hotel" : "create Banner hotel";
+  const toastMessage = initialData
+    ? "Banner edit successful edit"
+    : "Banner create successful";
+  const action = initialData ? "Save Banner" : "create Banner";
 
   const form = useForm<BannerFormValues>({
     resolver: zodResolver(formSchema),
@@ -62,15 +64,15 @@ export const BannerForm: React.FC<BannerFormProps> = ({ initialData }) => {
     try {
       setLoading(true);
       if (initialData) {
-        await axios.patch(`/api/${params.storeId}/banners/${params.bannerId}`, data);
+        await axios.patch(`/api/${params.hotelId}/banners/${params.bannerId}`, data);
       } else {
-        await axios.post(`/api/${params.storeId}/banners`, data);
+        await axios.post(`/api/${params.hotelId}/banners`, data);
       }
       router.refresh();
-      router.push(`/${params.storeId}/banners`);
+      router.push(`/${params.hotelId}/banners`);
       toast.success(toastMessage);
     } catch (error) {
-      toast.error("Cek kembali data yang diinput");
+      toast.error("you must check your input data");
     } finally {
       setLoading(false);
     }
@@ -79,12 +81,12 @@ export const BannerForm: React.FC<BannerFormProps> = ({ initialData }) => {
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/${params.storeId}/banners/${params.bannerId}`);
+      await axios.delete(`/api/${params.hotelId}/banners/${params.bannerId}`);
       router.refresh();
-      router.push(`/${params.storeId}/banners`);
-      toast.success("Banner berhasil dihapus");
+      router.push(`/${params.hotelId}/banners`);
+      toast.success("Banner successfully deleted");
     } catch (error) {
-      toast.error("Cek kembali data dan koneksi mu");
+      toast.error("Check your data connection");
     } finally {
       setLoading(false);
       setOpen(false);
@@ -158,3 +160,5 @@ export const BannerForm: React.FC<BannerFormProps> = ({ initialData }) => {
     </>
   );
 };
+
+

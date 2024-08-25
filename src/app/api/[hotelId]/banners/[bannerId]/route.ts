@@ -23,7 +23,7 @@ export async function GET(req: Request, { params }: { params: { bannerId: string
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { storeId: string; bannerId: string } }
+  { params }: { params: { hotelId: string; bannerId: string } }
 ) {
   try {
     const { userId } = auth();
@@ -46,14 +46,14 @@ export async function PATCH(
       return new NextResponse("Banner id dibutuhkan", { status: 400 });
     }
 
-    const storeByUserId = await db.store.findFirst({
+    const hotelByUserId = await db.hotel.findFirst({
       where: {
-        id: params.storeId,
+        id: params.hotelId,
         userId,
       },
     });
 
-    if (!storeByUserId) {
+    if (!hotelByUserId) {
       return new NextResponse("Unauthorized", { status: 403 });
     }
 
@@ -76,7 +76,7 @@ export async function PATCH(
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { storeId: string; bannerId: string } }
+  { params }: { params: { hotelId: string; bannerId: string } }
 ) {
   try {
     const { userId } = auth();
@@ -89,14 +89,14 @@ export async function DELETE(
       return new NextResponse("Banner id dibutuhkan", { status: 400 });
     }
 
-    const storeByUserId = await db.store.findFirst({
+    const hotelByUserId = await db.hotel.findFirst({
       where: {
-        id: params.storeId,
+        id: params.hotelId,
         userId,
       },
     });
 
-    if (!storeByUserId) {
+    if (!hotelByUserId) {
       return new NextResponse("Unauthorized", { status: 403 });
     }
 

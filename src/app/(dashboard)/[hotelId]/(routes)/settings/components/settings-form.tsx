@@ -7,7 +7,7 @@ import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
-import { Store } from "@prisma/client";
+import { Hotel } from "@prisma/client";
 import { Trash } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -27,7 +27,7 @@ import { ApiAlert } from "@/components/ui/api-alert";
 import { useOrigin } from "@/hooks/use-origin";
 
 interface SettingsFormProps {
-  initialData: Store;
+  initialData: Hotel;
 }
 
 const formSchema = z.object({
@@ -52,7 +52,7 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
   const onSubmit = async (data: SettingsFormValues) => {
     try {
       setLoading(true);
-      await axios.patch(`/api/stores/${params.storeId}`, data);
+      await axios.patch(`/api/hotels/${params.hotelId}`, data);
       router.refresh();
       toast.success("Toko berhasil di update");
     } catch (error) {
@@ -65,7 +65,7 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/stores/${params.storeId}`);
+      await axios.delete(`/api/hotels/${params.hotelId}`);
       router.refresh();
       router.push("/");
       toast.success("Toko berhasil dihapus");
@@ -122,7 +122,7 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
       <Separator />
       <ApiAlert
         title="PUBLIC_API_URL"
-        description={`${origin}/api/${params.storeId}`}
+        description={`${origin}/api/${params.hotelId}`}
         variant="public"
       />
     </>

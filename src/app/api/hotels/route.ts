@@ -17,14 +17,14 @@ export async function POST(req: Request) {
       return new NextResponse("Nama toko perlu diinput", { status: 400 });
     }
 
-    const store = await db.store.create({
+    const hotel = await db.hotel.create({
       data: {
         name,
         userId,
       },
     });
 
-    return NextResponse.json(store);
+    return NextResponse.json(hotel);
   } catch (error) {
     console.log("[STORES_POST]", error);
     return new NextResponse("Internal error", { status: 500 });

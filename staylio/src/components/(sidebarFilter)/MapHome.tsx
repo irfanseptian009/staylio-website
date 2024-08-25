@@ -16,8 +16,8 @@ export default function MapHome() {
         const { Map } = await loader.importLibrary('maps');
 
         const position = {
-            lat: 43.642693,
-            lng: -79.3871189,
+            lat: -8.8104,
+            lng: 115.1676,
         }
 
         //Map Options

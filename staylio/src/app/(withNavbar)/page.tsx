@@ -9,21 +9,98 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable"
 import { Separator } from "@/components/ui/separator"
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Slider from '@mui/material/Slider';
 import { ListBulletIcon, Squares2X2Icon } from '@heroicons/react/20/solid';
-import MapHome from '@/components/(sidebarFilter)/MapHome';
 import React from "react";
-import Rating from '@mui/material/Rating';
-import { colors } from "@mui/material";
 import SidebarFilter from "@/components/(sidebarFilter)/SidebarFilter";
+import HotelCard from "@/components/HotelCard";
 
 export default function Home() {
   const [starValue, setStarValue] = React.useState<number | null>(2);
   const [priceRangeValue, setPriceRangeValue] = React.useState<number[]>([300000, 600000]);
   const [discount, setDiscount] = React.useState<number>(45);
+
+  const hotels = [
+    {
+      name: 'Brits Hotel Legian',
+      rating: 5,
+      address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
+      price: 347107,
+      imageUrl: '/hotel1.png',
+      url: '/hotel/brits-hotel-legian',
+    },
+    {
+      name: 'Four Star by Trans Hotel',
+      rating: 5,
+      address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
+      price: 507107,
+      imageUrl: '/hotel2.png',
+      url: '/hotel/brits-hotel-legian',
+    },
+    {
+      name: 'Atanaya Kuta Bali',
+      rating: 5,
+      address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
+      price: 400107,
+      imageUrl: '/hotel3.png',
+      url: '/hotel/brits-hotel-legian',
+    },
+    {
+      name: 'New Kuta Hotel by Lorin',
+      rating: 5,
+      address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
+      price: 910107,
+      imageUrl: '/hotel4.png',
+      url: '/hotel/brits-hotel-legian',
+    },
+    {
+      name: 'Primera Hotel Seminyak',
+      rating: 5,
+      address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
+      price: 253202,
+      imageUrl: '/hotel5.png',
+      url: '/hotel/brits-hotel-legian',
+    },
+    {
+      name: 'HARRIS Hotel Kuta Galleria',
+      rating: 5,
+      address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
+      price: 550413,
+      imageUrl: '/hotel6.png',
+      url: '/hotel/brits-hotel-legian',
+    },
+    {
+      name: 'Sovereign Bali Hotel',
+      rating: 5,
+      address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
+      price: 681405,
+      imageUrl: '/hotel7.png',
+      url: '/hotel/brits-hotel-legian',
+    },
+    {
+      name: 'The Kanjeng Hotel Legian',
+      rating: 5,
+      address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
+      price: 297625,
+      imageUrl: '/hotel8.png',
+      url: '/hotel/brits-hotel-legian',
+    },
+    {
+      name: 'The Kanjeng Resort Ubud',
+      rating: 5,
+      address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
+      price: 710744,
+      imageUrl: '/hotel9.png',
+      url: '/hotel/brits-hotel-legian',
+    },
+    {
+      name: 'Aryaduta Bali',
+      rating: 5,
+      address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
+      price: 2507107,
+      imageUrl: '/hotel10.png',
+      url: '/hotel/brits-hotel-legian',
+    },
+  ];
 
   return (
     <main className="bg-white">
@@ -65,7 +142,7 @@ export default function Home() {
             <Separator orientation="vertical" />
             <div className="flex gap-4">
               <p className="font-bold">586</p>
-              <p>Properties found in Bali</p>
+              <p>Hotels found in Bali</p>
             </div>
           </div>
           <div className="flex gap-4">
@@ -97,10 +174,12 @@ export default function Home() {
             />
           </ResizablePanel>
           <ResizableHandle disabled className="bg-white" />
-          {/* Main Content */}
+          {/* Main Card Content */}
           <ResizablePanel defaultSize={78} className="flex-grow">
-            <div className="flex h-full items-center justify-center p-6">
-              <span className="font-semibold">Content</span>
+            <div className="flex flex-col gap-4">
+              {hotels.map((hotel, index) => (
+                <HotelCard key={index} hotel={hotel} />
+              ))}
             </div>
           </ResizablePanel>
         </ResizablePanelGroup>

@@ -253,7 +253,7 @@ export default function SidebarFilter({
                         setStarValue(newValue);
                     }}
                     sx={{
-                        color: '#FE6927',
+                        color: '#eab308',
                         '& .MuiRating-iconEmpty': {
                             color: '#CBCBCB',
                         },

@@ -28,7 +28,7 @@ const HotelCard = ({ hotel }: { hotel: Hotel }) => {
                         objectFit="cover"
                     />
                     <div className="ml-4">
-                        <h3 className="text-lg font-semibold text-gray-900 group-hover:text-orange-500">
+                        <h3 className="text-lg font-semibold text-gray-900 group-hover:text-[#FE6927]">
                             {hotel.name}
                         </h3>
                         <div className="flex items-center mt-1 text-yellow-500">
@@ -39,13 +39,13 @@ const HotelCard = ({ hotel }: { hotel: Hotel }) => {
                         <p className="text-sm text-gray-600 mt-2">{hotel.address}</p>
                         <div className='flex items-center mt-10 justify-between lg:gap-[320px] 2xl:gap-[595px]'>
                             <div className='flex items-center gap-4'>
-                                <p className="text-xl font-bold text-orange-500 w-[132px]">
+                                <p className="text-xl font-bold text-[#FE6927] w-[132px]">
                                     Rp {hotel.price.toLocaleString('id-ID')}
                                 </p>
                                 <p className="text-sm text-gray-600">/ Night</p>
                             </div>
                             <Link href={hotel.url}>
-                                <button className="bg-orange-500 text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-orange-600 transition duration-300 ease-in-out">
+                                <button className="bg-[#FE6927] text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-[#FE6927] transition duration-300 ease-in-out">
                                     Choose rooms
                                 </button>
                             </Link>

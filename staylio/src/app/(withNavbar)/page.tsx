@@ -9,6 +9,8 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable"
 import { Separator } from "@/components/ui/separator"
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 import { ListBulletIcon, Squares2X2Icon } from '@heroicons/react/20/solid';
 import React from "react";
 import SidebarFilter from "@/components/(sidebarFilter)/SidebarFilter";
@@ -180,6 +182,25 @@ export default function Home() {
               {hotels.map((hotel, index) => (
                 <HotelCard key={index} hotel={hotel} />
               ))}
+            </div>
+            <div className="flex justify-center p-10">
+              <Pagination
+                count={10}
+                shape="rounded"
+                variant="outlined"
+                size="large"
+                sx={{
+                  '& .MuiPaginationItem-root': {
+                    color: 'black',
+                    borderColor: 'white', 
+                  },
+                  '& .MuiPaginationItem-page.Mui-selected': {
+                    backgroundColor: 'white', 
+                    borderColor: '#FE6927', 
+                    color: 'black',
+                  },
+                }}
+              />
             </div>
           </ResizablePanel>
         </ResizablePanelGroup>

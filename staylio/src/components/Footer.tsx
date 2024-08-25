@@ -17,16 +17,19 @@ const Footer = () => {
         </div>
         <div className="w-full lg:w-3/4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6">
           <div className="max-w-xs">
-            <h3 className="font-semibold text-gray-800 mb-4">Rooms</h3>
+            <h3 className="font-semibold text-gray-800 mb-4">Pages</h3>
             <ul className="space-y-2">
               <li className="text-gray-600 hover:text-gray-800 transition">
-                <Link href="/rooms/standard">Standard</Link>
+                <Link href="/rooms/standard">Hotel</Link>
               </li>
               <li className="text-gray-600 hover:text-gray-800 transition">
-                <Link href="/rooms/deluxe">Deluxe</Link>
+                <Link href="/rooms/deluxe">AI Chatbot</Link>
               </li>
               <li className="text-gray-600 hover:text-gray-800 transition">
-                <Link href="/rooms/family">Family</Link>
+                <Link href="/rooms/family">Services</Link>
+              </li>
+              <li className="text-gray-600 hover:text-gray-800 transition">
+                <Link href="/rooms/family">Contact</Link>
               </li>
             </ul>
           </div>

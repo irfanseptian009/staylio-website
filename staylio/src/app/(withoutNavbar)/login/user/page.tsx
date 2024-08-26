@@ -1,15 +1,20 @@
 'use client'; 
 
 import Link from 'next/link';
-import { signIn } from 'next-auth/react';
+import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { useState } from 'react';
+import { getAuth } from 'firebase/auth'; 
+import thumbnail from "@/assets/thumbnail.png";
+import logo from "@/assets/logo.png";
 
-export default function LoginPage() {
+export default function UserLoginPage() {
   const [error, setError] = useState("");
 
   const handleGoogleLogin = async () => {
+    const provider = new GoogleAuthProvider();
+    const auth = getAuth();
     try {
-      await signIn('google', { callbackUrl: '/' });
+      await signInWithPopup(auth, provider);
     } catch (err) {
       setError("Google login failed. Please try again.");
     }
@@ -18,8 +23,8 @@ export default function LoginPage() {
   return (
     <div className="flex justify-center items-center h-screen bg-gray-50">
       <div className="flex bg-white rounded-lg shadow-lg max-w-4xl overflow-hidden">
-        {/* Left Section - Login Form */}
         <div className="w-1/2 p-8">
+          <img src={logo.src} alt="Logo" className="w-10 h-50" />
           <h1 className="text-3xl font-bold mb-4">
             Login and <span className="text-orange-500">Discover</span> Your Perfect Stay
           </h1>
@@ -43,6 +48,11 @@ export default function LoginPage() {
               placeholder="Enter your password"
             />
           </div>
+          <div className="flex justify-center space-x-4 mb-6">
+            <Link href="/login/admin" className="bg-orange-500 text-white px-4 py-2 rounded-lg">
+              Admin
+            </Link>
+          </div>
           <button className="w-full bg-orange-500 text-white py-2 rounded-lg mb-4">Sign In</button>
           <div className="text-center text-gray-500 mb-4">Or sign in with</div>
           {/* Google Login Button */}
@@ -57,8 +67,8 @@ export default function LoginPage() {
         {/* Right Section - Image */}
         <div className="w-1/2">
           <img
-            src="/Intersect.png"
-            alt="Intersect"
+            src={thumbnail.src}
+            alt="thumbnail"
             className="object-cover w-full h-full"
           />
         </div>

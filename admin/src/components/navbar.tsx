@@ -4,6 +4,8 @@ import { redirect } from "next/navigation";
 import db from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { UserButton } from "@clerk/nextjs";
+import logo from "@/app/asset/logo.png";
+import Image from "next/image";
 
 const Navbar = async () => {
   const { userId } = auth();
@@ -19,11 +21,19 @@ const Navbar = async () => {
   });
 
   return (
-    <div className="border-b bg-gray-200">
+    <div className="border-b">
       <div className="flex h-16 items-center px-4">
-        <Hotelswitcher items={Hotels} />
+        <Image
+          src={logo}
+          className="btn btn-ghost object-contain"
+          width={150}
+          height={150}
+          alt="Staylio Logo"
+        />
         <MainNav className="mx-6" />
+
         <div className="ml-auto flex items-center space-x-4">
+          <Hotelswitcher items={Hotels} />
           <UserButton afterSignOutUrl="/" />
         </div>
       </div>

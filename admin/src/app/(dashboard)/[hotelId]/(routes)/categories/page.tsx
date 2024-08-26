@@ -25,7 +25,7 @@ const CategoriesPage = async ({ params }: { params: { hotelId: string } }) => {
   }));
 
   return (
-    <div className="flex-col">
+    <div className="flex-col bg-gray-200">
       <div className="flex-1 space-y-4 p-8 pt-6">
         <CategoryClient data={formattedCategories} />
       </div>

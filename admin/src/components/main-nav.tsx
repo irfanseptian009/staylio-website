@@ -26,7 +26,7 @@ export function MainNav({ className, ...props }: React.HTMLAttributes<HTMLElemen
     },
     {
       href: `/${params.hotelId}/products`,
-      label: "Room",
+      label: "Hotel",
       active: pathname === `/${params.hotelId}/products`,
     },
     {

@@ -17,9 +17,9 @@ model Hotel {
   id      String    @id @default(uuid())
   name    String
   userId  String
-  banners Banner[] @relation("StoreToBanner")
-  categories Category[] @relation("StoreToCategory")
-  product Product[] @relation("StoreToProduct")
+  banners Banner[] @relation("HotelToBanner")
+  categories Category[] @relation("HotelToCategory")
+  product Product[] @relation("HotelToProduct")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -27,7 +27,7 @@ model Hotel {
 model Banner {
   id      String @id @default(uuid())
   hotelId String
-  hotel   Hotel @relation("StoreToBanner", fields: [hotelId], references: [id])
+  hotel   Hotel @relation("HotelToBanner", fields: [hotelId], references: [id])
   label   String
   imageUrl  String
   categories  Category[]
@@ -40,7 +40,7 @@ model Banner {
 model Category {
   id      String @id @default(uuid())
   hotelId String
-  hotel   Hotel @relation("StoreToCategory", fields: [hotelId], references: [id])
+  hotel   Hotel @relation("HotelToCategory", fields: [hotelId], references: [id])
   bannerId  String
   banner Banner @relation(fields: [bannerId], references: [id])
   products  Product[] @relation("CategoryToProduct")
@@ -55,7 +55,7 @@ model Category {
 model Product {
   id      String @id @default(uuid())
   hotelId String
-  hotel   Hotel @relation("StoreToProduct", fields: [hotelId], references: [id])
+  hotel   Hotel @relation("HotelToProduct", fields: [hotelId], references: [id])
   categoryId  String
   category  Category @relation("CategoryToProduct", fields: [categoryId], references: [id])
   name    String

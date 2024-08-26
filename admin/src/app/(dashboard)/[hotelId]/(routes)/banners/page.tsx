@@ -21,7 +21,7 @@ const BannersPage = async ({ params }: { params: { hotelId: string } }) => {
   }));
 
   return (
-    <div className="flex-col">
+    <div className="flex-col bg-blue-100">
       <div className="flex-1 space-y-4 p-8 pt-6">
         <BannerClient data={formattedBanners} />
       </div>
@@ -30,4 +30,3 @@ const BannersPage = async ({ params }: { params: { hotelId: string } }) => {
 };
 
 export default BannersPage;
-

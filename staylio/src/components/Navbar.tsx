@@ -51,7 +51,7 @@ function Navbar() {
           </ul>
         </div>
         <div className="navbar-end">
-          <Link href="/button-page" className="btn flex justify-center items-center px-8 py-4 mr-4 lg:h-8 bg-[#FE6927] hover:bg-[#D9581F] hover:border-white  rounded-2xl text-white font-semibold">Sign In</Link>
+          <Link href="/login" className="btn flex justify-center items-center px-8 py-4 mr-4 lg:h-8 bg-[#FE6927] hover:bg-[#D9581F] hover:border-white  rounded-2xl text-white font-semibold">Sign In</Link>
         </div>
       </div>
     </div>

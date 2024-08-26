@@ -51,7 +51,7 @@ const HotelSwitcher = ({ className, items = [] }: HotelSwitcherProps) => {
           size="sm"
           role="combobox"
           aria-expanded={open}
-          aria-label="Pilih Toko"
+          aria-label="chose hotel"
           className={cn("w-[200px] justify-between", className)}
         >
           <HotelIcon className="mr-2 h-4 w-4" />
@@ -62,9 +62,9 @@ const HotelSwitcher = ({ className, items = [] }: HotelSwitcherProps) => {
       <PopoverContent className="w-[200px] p-0">
         <Command>
           <CommandList>
-            <CommandInput placeholder="Cari Toko" />
-            <CommandEmpty>Toko Tidak Ditemukan</CommandEmpty>
-            <CommandGroup heading="Toko">
+            <CommandInput placeholder="search hotel" />
+            <CommandEmpty> not found</CommandEmpty>
+            <CommandGroup heading="Hotel">
               {formattedItems.map((hotel) => (
                 <CommandItem
                   key={hotel.value}
@@ -93,7 +93,7 @@ const HotelSwitcher = ({ className, items = [] }: HotelSwitcherProps) => {
                 }}
               >
                 <PlusCircle className="mr-2 h-5 w-5" />
-                Buat Toko
+                Create Hotel
               </CommandItem>
             </CommandGroup>
           </CommandList>

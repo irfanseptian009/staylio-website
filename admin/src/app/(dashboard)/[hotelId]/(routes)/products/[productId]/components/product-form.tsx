@@ -46,11 +46,13 @@ interface ProductFormProps {
 
 const formSchema = z.object({
   name: z.string().min(1),
+  overview: z.string().min(1),
+  capacity: z.coerce.number().min(1),
   images: z.object({ url: z.string() }).array(),
   price: z.coerce.number().min(1),
   categoryId: z.string().min(1),
   isFeatured: z.boolean().default(false).optional(),
-  isArchived: z.boolean().default(false).optional(),
+  amenities: z.string().min(1),
 });
 
 type ProductFormValues = z.infer<typeof formSchema>;
@@ -79,11 +81,13 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData, categorie
         }
       : {
           name: "",
+          overview: "",
+          capacity: 0,
           images: [],
           price: 0,
           categoryId: "",
           isFeatured: false,
-          isArchived: false,
+          amenities: false,
         },
   });
 
@@ -182,12 +186,56 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData, categorie
             />
             <FormField
               control={form.control}
+              name="overview"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Overview</FormLabel>
+                  <FormControl>
+                    <Input placeholder="overview" disabled={loading} {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="amenities"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Amenites</FormLabel>
+                  <FormControl>
+                    <Input placeholder="amenities" disabled={loading} {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
               name="price"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Harga</FormLabel>
                   <FormControl>
                     <Input placeholder="Rp" disabled={loading} {...field} type="number" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="capacity"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>capacity</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="rom"
+                      disabled={loading}
+                      {...field}
+                      type="number"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -238,23 +286,6 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData, categorie
                   <div className="space-y-1 leading-none">
                     <FormLabel>Featured</FormLabel>
                     <FormDescription>Hotel ini akan muncul di Home Page</FormDescription>
-                  </div>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="isArchived"
-              render={({ field }) => (
-                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
-                  <FormControl>
-                    <Checkbox checked={field.value} onCheckedChange={field.onChange} />
-                  </FormControl>
-                  <div className="space-y-1 leading-none">
-                    <FormLabel>Archived</FormLabel>
-                    <FormDescription>
-                      informasi ini akan disembunyikan dari hotel
-                    </FormDescription>
                   </div>
                 </FormItem>
               )}

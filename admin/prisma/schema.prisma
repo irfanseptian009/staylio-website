@@ -60,11 +60,14 @@ model Product {
   category  Category @relation("CategoryToProduct", fields: [categoryId], references: [id])
   name    String
   price   Decimal
+  overview    String
+  capacity       Decimal
   isFeatured  Boolean @default(false)
-  isArchived  Boolean @default(false)
   images  Image[]
-  createdAt DateTime @default(now()) 
+  amenities String
+  createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
 
   @@index([hotelId])
   @@index([categoryId])

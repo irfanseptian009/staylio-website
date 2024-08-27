@@ -34,13 +34,17 @@ export async function PATCH(
     const { userId } = auth();
     const body = await req.json();
 
-    const { name, price, categoryId, images, isFeatured, isArchived } = body;
+    const { name, price, overview, capacity, categoryId, images, isFeatured, amenities } =
+      body;
 
     if (!userId) {
       return new NextResponse("Unauthenticated", { status: 401 });
     }
     if (!name) {
       return new NextResponse("Nama perlu diinput", { status: 400 });
+    }
+    if (!overview) {
+      return new NextResponse("Description perlu diinput", { status: 400 });
     }
 
     if (!images || !images.length) {
@@ -49,6 +53,9 @@ export async function PATCH(
 
     if (!price) {
       return new NextResponse("Harga perlu diinput", { status: 400 });
+    }
+    if (!capacity) {
+      return new NextResponse("capacity perlu diinput", { status: 400 });
     }
 
     if (!categoryId) {
@@ -76,9 +83,11 @@ export async function PATCH(
       },
       data: {
         name,
+        overview,
+        capacity,
         price,
         isFeatured,
-        isArchived,
+        amenities,
         categoryId,
         images: {
           deleteMany: {},

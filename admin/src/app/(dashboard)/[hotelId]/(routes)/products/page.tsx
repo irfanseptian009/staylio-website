@@ -13,19 +13,17 @@ const ProductsPage = async ({ params }: { params: { hotelId: string } }) => {
     include: {
       category: true,
     },
-    orderBy: {
-      createdAt: "desc",
-    },
   });
 
   const formattedProducts: ProductColumn[] = products.map((item) => ({
     id: item.id,
     name: item.name,
+    amenities: item.amenities,
+    overview: item.overview,
     isFeatured: item.isFeatured,
-    isArchived: item.isArchived,
     price: formatter.format(item.price.toNumber()),
+    capacity: formatter.format(Number(item.capacity)),
     category: item.category.name,
-    createdAt: format(item.createdAt, "MMM do, yyyy"),
   }));
 
   return (

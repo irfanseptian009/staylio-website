@@ -7,7 +7,8 @@ export async function POST(req: Request, { params }: { params: { hotelId: string
     const { userId } = auth();
     const body = await req.json();
 
-    const { name, price, categoryId, images, isFeatured, isArchived } = body;
+    const { name, price, categoryId, overview, capacity, images, isFeatured, amenities } =
+      body;
 
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -16,6 +17,12 @@ export async function POST(req: Request, { params }: { params: { hotelId: string
     if (!name) {
       return new NextResponse("Nama perlu diinput", { status: 400 });
     }
+    if (!overview) {
+      return new NextResponse("overview perlu diinput", { status: 400 });
+    }
+    if (!amenities) {
+      return new NextResponse("amenities perlu diinput", { status: 400 });
+    }
 
     if (!images || !images.length) {
       return new NextResponse("Image perlu diinput", { status: 400 });
@@ -23,6 +30,9 @@ export async function POST(req: Request, { params }: { params: { hotelId: string
 
     if (!price) {
       return new NextResponse("Harga perlu diinput", { status: 400 });
+    }
+    if (!capacity) {
+      return new NextResponse("capacity perlu diinput", { status: 400 });
     }
 
     if (!categoryId) {
@@ -47,10 +57,12 @@ export async function POST(req: Request, { params }: { params: { hotelId: string
     const product = await db.product.create({
       data: {
         name,
+        overview,
+        capacity,
         price,
         categoryId,
         isFeatured,
-        isArchived,
+        amenities,
         hotelId: params.hotelId,
         images: {
           createMany: {
@@ -82,7 +94,6 @@ export async function GET(req: Request, { params }: { params: { hotelId: string 
         hotelId: params.hotelId,
         categoryId,
         isFeatured: isFeatured ? true : undefined,
-        isArchived: false,
       },
       include: {
         images: true,

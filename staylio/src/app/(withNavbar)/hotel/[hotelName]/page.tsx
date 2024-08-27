@@ -19,6 +19,9 @@ import side2 from "@/assets/side2.png";
 import side3 from "@/assets/side3.png";
 import { CircleParkingIcon, PawPrintIcon, TvIcon, WashingMachineIcon, PlaneIcon, DumbbellIcon, Plane } from "lucide-react"
 import RoomCard from '@/components/RoomCard';
+import HotelAmenities from '@/components/HotelAmenities';
+import HotelLocation from '@/components/HotelLocation';
+import HotelReview from '@/components/HotelReview';
 
 
 export default function Page({ params }: { params: { hotelName: string } }) {
@@ -187,6 +190,17 @@ export default function Page({ params }: { params: { hotelName: string } }) {
                         <RoomCard key={index} room={room} />
                     ))}
                 </div>
+            </div>
+            <div className="p-6 sm:p-12 md:p-16 lg:px-20 lg:py-15 w-full mt-[-40px]">
+                <div>
+                    <HotelAmenities />
+                </div>
+            </div>
+            <div className="p-6 sm:p-12 md:p-16 lg:px-20 lg:py-15 w-full mt-[-40px]">
+                <HotelLocation />
+            </div>
+            <div className="p-6 sm:p-12 md:p-16 lg:px-20 lg:py-15 w-full mt-[-40px]">
+                <HotelReview />
             </div>
         </div>
     )

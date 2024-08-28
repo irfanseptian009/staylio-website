@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 export async function GET(req: Request, { params }: { params: { productId: string } }) {
   try {
     if (!params.productId) {
-      return new NextResponse("Product id dibutuhkan", { status: 400 });
+      return new NextResponse("tempat id dibutuhkan", { status: 400 });
     }
 
     const product = await db.product.findUnique({
@@ -34,14 +34,28 @@ export async function PATCH(
     const { userId } = auth();
     const body = await req.json();
 
-    const { name, price, overview, capacity, categoryId, images, isFeatured, amenities } =
-      body;
+    const {
+      name,
+      city,
+      latitude,
+      longitude,
+      price,
+      overview,
+      capacity,
+      categoryId,
+      images,
+      isFeatured,
+      amenities,
+    } = body;
 
     if (!userId) {
       return new NextResponse("Unauthenticated", { status: 401 });
     }
     if (!name) {
       return new NextResponse("Nama perlu diinput", { status: 400 });
+    }
+    if (!city) {
+      return new NextResponse("City perlu diinput", { status: 400 });
     }
     if (!overview) {
       return new NextResponse("Description perlu diinput", { status: 400 });
@@ -53,6 +67,12 @@ export async function PATCH(
 
     if (!price) {
       return new NextResponse("Harga perlu diinput", { status: 400 });
+    }
+    if (!longitude) {
+      return new NextResponse("longitude perlu diinput", { status: 400 });
+    }
+    if (!latitude) {
+      return new NextResponse("latitude perlu diinput", { status: 400 });
     }
     if (!capacity) {
       return new NextResponse("capacity perlu diinput", { status: 400 });
@@ -83,6 +103,9 @@ export async function PATCH(
       },
       data: {
         name,
+        city,
+        latitude,
+        longitude,
         overview,
         capacity,
         price,
@@ -127,7 +150,7 @@ export async function DELETE(
     }
 
     if (!params.productId) {
-      return new NextResponse("Product id dibutuhkan", { status: 400 });
+      return new NextResponse("tempat id dibutuhkan", { status: 400 });
     }
 
     const storeByUserId = await db.hotel.findFirst({

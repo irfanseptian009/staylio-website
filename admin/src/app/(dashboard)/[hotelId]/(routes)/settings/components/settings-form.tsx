@@ -54,9 +54,9 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
       setLoading(true);
       await axios.patch(`/api/hotels/${params.hotelId}`, data);
       router.refresh();
-      toast.success("Toko berhasil di update");
+      toast.success("Brand already updated");
     } catch (error) {
-      toast.error("Cek kembali data yang diinput");
+      toast.error("check your data connection");
     } finally {
       setLoading(false);
     }
@@ -68,9 +68,9 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
       await axios.delete(`/api/hotels/${params.hotelId}`);
       router.refresh();
       router.push("/");
-      toast.success("Toko berhasil dihapus");
+      toast.success("brand already deleted");
     } catch (error) {
-      toast.error("Cek kembali data dan koneksi mu");
+      toast.error("check your data connection");
     } finally {
       setLoading(false);
       setOpen(false);
@@ -85,8 +85,8 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
         onConfirm={onDelete}
         loading={loading}
       />
-      <div className="flex items-center justify-between">
-        <Heading title="Settings" description="Atur Toko" />
+      <div className="flex items-center  justify-between bg-orange-400 p-5 shadow-md rounded-b-3xl">
+        <Heading title="Settings" description="set brand" />
         <Button
           disabled={loading}
           variant="destructive"
@@ -107,7 +107,7 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Nama Toko" disabled={loading} {...field} />
+                    <Input placeholder="Name brand" disabled={loading} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

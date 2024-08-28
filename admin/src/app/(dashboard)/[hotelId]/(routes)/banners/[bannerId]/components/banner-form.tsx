@@ -46,7 +46,9 @@ export const BannerForm: React.FC<BannerFormProps> = ({ initialData }) => {
   const [loading, setLoading] = useState(false);
 
   const title = initialData ? "Edit Banner" : "create Banner";
-  const description = initialData ? "Edit Banner hotel" : "create Banner hotel";
+  const description = initialData
+    ? "Edit Banner Lodging Place"
+    : "create Banner Lodging Place";
   const toastMessage = initialData
     ? "Banner edit successful edit"
     : "Banner create successful";
@@ -160,5 +162,3 @@ export const BannerForm: React.FC<BannerFormProps> = ({ initialData }) => {
     </>
   );
 };
-
-

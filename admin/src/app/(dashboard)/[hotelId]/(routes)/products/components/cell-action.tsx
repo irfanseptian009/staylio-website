@@ -38,7 +38,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
       await axios.delete(`/api/${params.hotelId}/products/${data.id}`);
       router.refresh();
       router.push(`/${params.hotelId}/products`);
-      toast.success("hotel successfully deleted");
+      toast.success("place successfully deleted");
     } catch (error) {
       toast.error("check you data connection");
     } finally {

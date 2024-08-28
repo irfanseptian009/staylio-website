@@ -46,8 +46,11 @@ interface ProductFormProps {
 
 const formSchema = z.object({
   name: z.string().min(1),
+  city: z.string().min(1),
   overview: z.string().min(1),
   capacity: z.coerce.number().min(1),
+  longitude: z.coerce.number().min(1),
+  latitude: z.coerce.number().min(1),
   images: z.object({ url: z.string() }).array(),
   price: z.coerce.number().min(1),
   categoryId: z.string().min(1),
@@ -65,10 +68,10 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData, categorie
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const title = initialData ? "Edit hotel" : "Create Hotel";
+  const title = initialData ? "Edit Lodging Place" : "Create Lodging Place";
   const description = initialData
-    ? "Edit your information hotel here"
-    : "Create your information hotel here";
+    ? "Edit your information Lodging Place here"
+    : "Create your information Lodging Place here";
   const toastMessage = initialData ? "Product success to edit" : "Product create success";
   const action = initialData ? "Save Product" : "create Product";
 
@@ -77,17 +80,23 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData, categorie
     defaultValues: initialData
       ? {
           ...initialData,
+          longitude: parseFloat(String(initialData?.latitude)),
+          latitude: parseFloat(String(initialData?.latitude)),
           price: parseFloat(String(initialData?.price)),
+          capacity: parseFloat(String(initialData?.capacity)),
         }
       : {
           name: "",
+          city: "",
           overview: "",
           capacity: 0,
+          longitude: 0,
+          latitude: 0,
           images: [],
           price: 0,
           categoryId: "",
           isFeatured: false,
-          amenities: false,
+          amenities: "",
         },
   });
 
@@ -178,7 +187,24 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData, categorie
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Nama hotel" disabled={loading} {...field} />
+                    <Input
+                      placeholder="Nama Lodging Place"
+                      disabled={loading}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="city"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>City</FormLabel>
+                  <FormControl>
+                    <Input placeholder="City" disabled={loading} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -202,7 +228,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData, categorie
               name="amenities"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Amenites</FormLabel>
+                  <FormLabel>amenities</FormLabel>
                   <FormControl>
                     <Input placeholder="amenities" disabled={loading} {...field} />
                   </FormControl>
@@ -210,14 +236,51 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData, categorie
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
               name="price"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Harga</FormLabel>
+                  <FormLabel>Harga Rental Tempat</FormLabel>
                   <FormControl>
                     <Input placeholder="Rp" disabled={loading} {...field} type="number" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="latitude"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>latituede</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="lat"
+                      disabled={loading}
+                      {...field}
+                      type="number"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="longitude"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>longituede</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="long"
+                      disabled={loading}
+                      {...field}
+                      type="number"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -228,7 +291,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData, categorie
               name="capacity"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>capacity</FormLabel>
+                  <FormLabel>capacity people</FormLabel>
                   <FormControl>
                     <Input
                       placeholder="rom"
@@ -285,7 +348,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData, categorie
                   </FormControl>
                   <div className="space-y-1 leading-none">
                     <FormLabel>Featured</FormLabel>
-                    <FormDescription>Hotel ini akan muncul di Home Page</FormDescription>
+                    <FormDescription>Tempat ini akan muncul di Home Page</FormDescription>
                   </div>
                 </FormItem>
               )}

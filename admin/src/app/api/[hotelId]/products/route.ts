@@ -7,8 +7,19 @@ export async function POST(req: Request, { params }: { params: { hotelId: string
     const { userId } = auth();
     const body = await req.json();
 
-    const { name, price, categoryId, overview, capacity, images, isFeatured, amenities } =
-      body;
+    const {
+      name,
+      city,
+      latitude,
+      longitude,
+      price,
+      categoryId,
+      overview,
+      capacity,
+      images,
+      isFeatured,
+      amenities,
+    } = body;
 
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -16,6 +27,9 @@ export async function POST(req: Request, { params }: { params: { hotelId: string
 
     if (!name) {
       return new NextResponse("Nama perlu diinput", { status: 400 });
+    }
+    if (!city) {
+      return new NextResponse("city perlu diinput", { status: 400 });
     }
     if (!overview) {
       return new NextResponse("overview perlu diinput", { status: 400 });
@@ -30,6 +44,12 @@ export async function POST(req: Request, { params }: { params: { hotelId: string
 
     if (!price) {
       return new NextResponse("Harga perlu diinput", { status: 400 });
+    }
+    if (!latitude) {
+      return new NextResponse("latitude perlu diinput", { status: 400 });
+    }
+    if (!longitude) {
+      return new NextResponse("longitude perlu diinput", { status: 400 });
     }
     if (!capacity) {
       return new NextResponse("capacity perlu diinput", { status: 400 });
@@ -57,6 +77,9 @@ export async function POST(req: Request, { params }: { params: { hotelId: string
     const product = await db.product.create({
       data: {
         name,
+        city,
+        latitude,
+        longitude,
         overview,
         capacity,
         price,

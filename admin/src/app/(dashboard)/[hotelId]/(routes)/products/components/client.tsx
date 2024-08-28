@@ -19,18 +19,23 @@ export const ProductClient: React.FC<ProductClientProps> = ({ data }) => {
 
   return (
     <>
-      <div className="flex items-center justify-between">
-        <Heading title={`Hotel (${data.length})`} description="Set Hotel" />
+      <div className="flex items-center  justify-between bg-orange-400 p-5 shadow-md rounded-b-3xl">
+        <Heading
+          title={`Lodging Place/Rent (${data.length})`}
+          description="Set Lodging Place"
+        />
         <Button onClick={() => router.push(`/${params.hotelId}/products/new`)}>
           <Plus className="mr-2 h-4 w-4" />
           Add New
         </Button>
       </div>
-      <Separator />
-      <DataTable data={data} columns={columns} searchKey="name" />
-      <Heading title="API" description="API for hotel" />
-      <Separator />
-      <ApiList namaIndikator="products" idIndikator="productId" />
+      <div className=" space-y-4 px-10 pb-14 pt-5">
+        {" "}
+        <DataTable data={data} columns={columns} searchKey="label" />
+        <Heading title="API" description="API for Banners" />
+        <Separator />
+        <ApiList namaIndikator="products" idIndikator="productId" />
+      </div>
     </>
   );
 };

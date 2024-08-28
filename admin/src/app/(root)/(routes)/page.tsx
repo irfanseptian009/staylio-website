@@ -14,7 +14,7 @@ const SetupPage = () => {
   }, [isOpen, onOpen]);
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="p4">rootPage</div>
+      <div className="p4 ">rootPage</div>
     </main>
   );
 };

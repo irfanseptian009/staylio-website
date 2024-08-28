@@ -49,20 +49,22 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div>
-      <div className="flex items-center py-4">
+    <div className="shadow-xl  rounded-lg bg-white">
+      {" "}
+      <p className="p-5 font-sm -mb-10 underline font-bold"> DATA TABLE</p>
+      <div className="flex items-center py-8 px-4 ">
         <Input
           placeholder="Search"
           value={(table.getColumn(searchKey)?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn(searchKey)?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
+          className="max-w-sm shadow-xl"
         />
       </div>
-      <div className="rounded-md border">
-        <Table>
-          <TableHeader>
+      <div className=" border  px-5">
+        <Table className="bg-gray-100 rounded-md">
+          <TableHeader className="bg-gray-200">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
@@ -98,7 +100,7 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
+      <div className="flex items-center justify-end space-x-2 py-1 px-6">
         <Button
           variant="outline"
           size="sm"

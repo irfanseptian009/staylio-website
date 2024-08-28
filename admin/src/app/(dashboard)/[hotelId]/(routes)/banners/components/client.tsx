@@ -20,10 +20,10 @@ export const BannerClient: React.FC<BannerClientProps> = ({ data }) => {
 
   return (
     <>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center  justify-between bg-orange-400 p-5 shadow-md rounded-b-3xl">
         <Heading
           title={`Banner (${data.length})`}
-          description="setting banner for hotel"
+          description="setting banner for Lodging Place"
         />
         <Button onClick={() => router.push(`/${params.hotelId}/banners/new`)}>
           <Plus className="mr-2 h-4 w-4" />
@@ -31,11 +31,13 @@ export const BannerClient: React.FC<BannerClientProps> = ({ data }) => {
         </Button>
       </div>
       <Separator />
-      <DataTable data={data} columns={columns} searchKey="label" />
-      <Heading title="API" description="API for Banners" />
-      <Separator />
-      <ApiList namaIndikator="banners" idIndikator="bannerId" />
+      <div className=" space-y-4 px-10 pb-14">
+        {" "}
+        <DataTable data={data} columns={columns} searchKey="label" />
+        <Heading title="API" description="API for Banners" />
+        <Separator />
+        <ApiList namaIndikator="banners" idIndikator="bannerId" />
+      </div>
     </>
   );
 };
-

@@ -17,31 +17,33 @@ export const ApiList: React.FC<ApiListProps> = ({ namaIndikator, idIndikator }) 
 
   return (
     <>
-      <ApiAlert
-        title="GET"
-        variant="public"
-        description={`${baseUrl}/${namaIndikator}`}
-      />
-      <ApiAlert
-        title="GET"
-        variant="public"
-        description={`${baseUrl}/${namaIndikator}/{${idIndikator}}`}
-      />
-      <ApiAlert
-        title="POST"
-        variant="admin"
-        description={`${baseUrl}/${namaIndikator}`}
-      />
-      <ApiAlert
-        title="PATCH"
-        variant="admin"
-        description={`${baseUrl}/${namaIndikator}/{${idIndikator}}`}
-      />
-      <ApiAlert
-        title="DELETE"
-        variant="admin"
-        description={`${baseUrl}/${namaIndikator}/{${idIndikator}}`}
-      />
+      <div className="shadow-2xl">
+        <ApiAlert
+          title="GET"
+          variant="public"
+          description={`${baseUrl}/${namaIndikator}`}
+        />
+        <ApiAlert
+          title="GET"
+          variant="public"
+          description={`${baseUrl}/${namaIndikator}/{${idIndikator}}`}
+        />
+        <ApiAlert
+          title="POST"
+          variant="admin"
+          description={`${baseUrl}/${namaIndikator}`}
+        />
+        <ApiAlert
+          title="PATCH"
+          variant="admin"
+          description={`${baseUrl}/${namaIndikator}/{${idIndikator}}`}
+        />
+        <ApiAlert
+          title="DELETE"
+          variant="admin"
+          description={`${baseUrl}/${namaIndikator}/{${idIndikator}}`}
+        />
+      </div>
     </>
   );
 };

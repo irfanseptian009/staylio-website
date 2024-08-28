@@ -135,7 +135,7 @@ export default function Page({ params }: { params: { bookingId: string } }) {
                         <Card className="p-6 shadow-md rounded-lg border border-gray-200">
                             <h2 className="font-semibold text-lg">Selected package</h2>
                             <div className="mt-2 border p-4 rounded-lg">
-                                <h3 className="font-semibold text-xl text-[#FE6927]">Rp {totalPrice.toLocaleString()}</h3> {/* Link the total price here */}
+                                <h3 className="font-semibold text-xl text-[#FE6927]">Rp {totalPrice.toLocaleString()}</h3> 
                                 <p className="mt-2 font-semibold">Brits Hotel Legian</p>
                                 <p className="text-sm text-gray-500 mt-1">
                                     Tickets are valid for 27 May - 31 July 23 and 18 Nov - 31 Dec 23
@@ -159,12 +159,36 @@ export default function Page({ params }: { params: { bookingId: string } }) {
                     </div>
                 </div>
 
-                {/* New Card for Personal Details */}
+                {/* Personal Details */}
                 <div className="mt-6 lg:w-[60%]">
                     <Card className="p-6 shadow-md rounded-lg border border-gray-200">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <Label>Name*</Label>
+                                <Input placeholder="Your name" className="mt-2" />
+                            </div>
+                            <div>
+                                <Label>Email*</Label>
+                                <Input placeholder="Your email" className="mt-2" />
+                            </div>
+                            <div>
+                                <Label>Address*</Label>
+                                <Input placeholder="Your address" className="mt-2" />
+                            </div>
+                            <div>
+                                <Label>No Telp*</Label>
+                                <Input placeholder="Your number" className="mt-2" />
+                            </div>
+                        </div>
+                    </Card>
+                </div>
+
+                {/* Payment Method */}
+                <div className="mt-6 lg:w-[100%]">
+                    <Card className="p-6 shadow-md rounded-lg border border-gray-200">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <Label>Select Payment Method</Label>
                                 <Input placeholder="Your name" className="mt-2" />
                             </div>
                             <div>

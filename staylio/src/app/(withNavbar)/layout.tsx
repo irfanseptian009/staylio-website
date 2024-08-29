@@ -5,25 +5,25 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 const poppins = Poppins({
-    subsets: ["latin"],
-    weight: "400"
+  subsets: ["latin"],
+  weight: "400",
 });
 
 export const metadata: Metadata = {
-    title: "Staylio",
-    description: "Online Hotel Booking Website",
+  title: "Staylio",
+  description: "Online Hotel Booking Website",
 };
 
 export default function RootLayout({
-    children,
+  children,
 }: Readonly<{
-    children: React.ReactNode;
+  children: React.ReactNode;
 }>) {
-    return (
-        <>
-            <Navbar />
-            <main>{children}</main>
-            <Footer />
-        </>
-    );
+  return (
+    <>
+      <Navbar />
+      <main>{children}</main>
+      <Footer />
+    </>
+  );
 }

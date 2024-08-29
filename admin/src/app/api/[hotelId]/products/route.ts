@@ -19,6 +19,8 @@ export async function POST(req: Request, { params }: { params: { hotelId: string
       images,
       isFeatured,
       amenities,
+      address,
+      rating,
     } = body;
 
     if (!userId) {
@@ -30,6 +32,9 @@ export async function POST(req: Request, { params }: { params: { hotelId: string
     }
     if (!city) {
       return new NextResponse("city perlu diinput", { status: 400 });
+    }
+    if (!address) {
+      return new NextResponse("address perlu diinput", { status: 400 });
     }
     if (!overview) {
       return new NextResponse("overview perlu diinput", { status: 400 });
@@ -53,6 +58,9 @@ export async function POST(req: Request, { params }: { params: { hotelId: string
     }
     if (!capacity) {
       return new NextResponse("capacity perlu diinput", { status: 400 });
+    }
+    if (!rating) {
+      return new NextResponse("rating perlu diinput", { status: 400 });
     }
 
     if (!categoryId) {
@@ -86,6 +94,8 @@ export async function POST(req: Request, { params }: { params: { hotelId: string
         categoryId,
         isFeatured,
         amenities,
+        address,
+        rating,
         hotelId: params.hotelId,
         images: {
           createMany: {

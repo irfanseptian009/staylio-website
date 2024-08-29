@@ -46,6 +46,8 @@ export async function PATCH(
       images,
       isFeatured,
       amenities,
+      address,
+      rating,
     } = body;
 
     if (!userId) {
@@ -57,6 +59,9 @@ export async function PATCH(
     if (!city) {
       return new NextResponse("City perlu diinput", { status: 400 });
     }
+    if (!address) {
+      return new NextResponse("address perlu diinput", { status: 400 });
+    }
     if (!overview) {
       return new NextResponse("Description perlu diinput", { status: 400 });
     }
@@ -67,6 +72,9 @@ export async function PATCH(
 
     if (!price) {
       return new NextResponse("Harga perlu diinput", { status: 400 });
+    }
+    if (!rating) {
+      return new NextResponse("rating perlu diinput", { status: 400 });
     }
     if (!longitude) {
       return new NextResponse("longitude perlu diinput", { status: 400 });
@@ -112,6 +120,8 @@ export async function PATCH(
         isFeatured,
         amenities,
         categoryId,
+        address,
+        rating,
         images: {
           deleteMany: {},
         },

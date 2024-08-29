@@ -62,6 +62,8 @@ model Product {
   price   Decimal
   longitude   Decimal
   latitude   Decimal
+  address String
+  rating Decimal
   city String
   overview    String
   capacity       Decimal

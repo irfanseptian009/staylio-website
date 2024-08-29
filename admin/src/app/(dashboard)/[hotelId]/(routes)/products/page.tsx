@@ -19,11 +19,13 @@ const ProductsPage = async ({ params }: { params: { hotelId: string } }) => {
     id: item.id,
     name: item.name,
     city: item.city,
+    address: item.address,
     amenities: item.amenities,
     overview: item.overview,
     isFeatured: item.isFeatured,
     price: formatter.format(item.price.toNumber()),
     latitude: formatter.format(Number(item.latitude)),
+    rating: formatter.format(Number(item.rating)),
     longitude: formatter.format(Number(item.longitude)),
 
     capacity: formatter.format(Number(item.capacity)),

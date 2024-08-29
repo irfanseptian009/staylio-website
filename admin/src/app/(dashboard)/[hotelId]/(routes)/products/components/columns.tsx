@@ -14,6 +14,8 @@ export type ProductColumn = {
   latitude: string;
   capacity: string;
   category: string;
+  address: string;
+  rating: string;
 };
 
 export const columns: ColumnDef<ProductColumn>[] = [
@@ -34,6 +36,10 @@ export const columns: ColumnDef<ProductColumn>[] = [
   {
     accessorKey: "category",
     header: "Category",
+  },
+  {
+    accessorKey: "address",
+    header: "Address",
   },
 
   {

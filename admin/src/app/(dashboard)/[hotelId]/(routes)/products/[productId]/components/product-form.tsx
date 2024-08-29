@@ -47,10 +47,12 @@ interface ProductFormProps {
 const formSchema = z.object({
   name: z.string().min(1),
   city: z.string().min(1),
+  address: z.string().min(1),
   overview: z.string().min(1),
   capacity: z.coerce.number().min(1),
-  longitude: z.coerce.number().min(1),
-  latitude: z.coerce.number().min(1),
+  rating: z.coerce.number().min(1),
+  longitude: z.coerce.number(),
+  latitude: z.coerce.number(),
   images: z.object({ url: z.string() }).array(),
   price: z.coerce.number().min(1),
   categoryId: z.string().min(1),
@@ -84,6 +86,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData, categorie
           latitude: parseFloat(String(initialData?.latitude)),
           price: parseFloat(String(initialData?.price)),
           capacity: parseFloat(String(initialData?.capacity)),
+          rating: parseFloat(String(initialData?.rating)),
         }
       : {
           name: "",
@@ -97,6 +100,8 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData, categorie
           categoryId: "",
           isFeatured: false,
           amenities: "",
+          address: "",
+          rating: 0,
         },
   });
 
@@ -212,6 +217,19 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData, categorie
             />
             <FormField
               control={form.control}
+              name="address"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Address</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Address" disabled={loading} {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
               name="overview"
               render={({ field }) => (
                 <FormItem>
@@ -245,6 +263,24 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData, categorie
                   <FormLabel>Harga Rental Tempat</FormLabel>
                   <FormControl>
                     <Input placeholder="Rp" disabled={loading} {...field} type="number" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="rating"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Rating</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="rating"
+                      disabled={loading}
+                      {...field}
+                      type="number"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

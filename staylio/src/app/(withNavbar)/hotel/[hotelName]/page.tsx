@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import SearchBox from '@/components/(searchBox)/SearchBox'
 import Breadcrumb from '@/components/Breadcrumb'
 import { Separator } from "@/components/ui/separator"
@@ -22,9 +22,11 @@ import RoomCard from '@/components/RoomCard';
 import HotelAmenities from '@/components/HotelAmenities';
 import HotelLocation from '@/components/HotelLocation';
 import HotelReview from '@/components/HotelReview';
+import { Hotel as HotelType } from '@/lib/hotelTypes';
 
 
 export default function Page({ params }: { params: { hotelName: string } }) {
+    const [hotel, setHotel] = useState<HotelType | null>(null);
     const [starValue, setStarValue] = React.useState<number | null>(4);
 
     const rooms = [
@@ -87,6 +89,35 @@ export default function Page({ params }: { params: { hotelName: string } }) {
         },
     ];
 
+    useEffect(() => {
+        const fetchHotelDetails = async () => {
+            try {
+                const response = await fetch('/api/products');
+                if (!response.ok) {
+                    console.error("Error fetching hotel details");
+                    return;
+                }
+                const data = await response.json();
+                const decodedHotelName = decodeURIComponent(params.hotelName);
+                const hotelData = data.find((hotel: HotelType) => hotel.name.trim().toLowerCase() === decodedHotelName.trim().toLowerCase());
+    
+                if (!hotelData) {
+                    console.error("Hotel not found");
+                    return;
+                }
+    
+                setHotel(hotelData);
+            } catch (error) {
+                console.error('Error fetching hotel details:', error);
+            }
+        };
+        fetchHotelDetails();
+    }, [params.hotelName]);
+
+    if (!hotel) {
+        return <div>Loading...</div>;
+    }
+
 
     return (
         <div>
@@ -101,9 +132,9 @@ export default function Page({ params }: { params: { hotelName: string } }) {
                 </div>
             </div>
             <div className="p-6 sm:p-12 md:p-16 lg:px-20 lg:py-6 w-full">
-                <h1 className="font-semibold text-xl">Brits Hotel Legian</h1>
+                <h1 className="font-semibold text-xl">{hotel.name}</h1>
                 <div className='flex items-center mt-4'>
-                    <h1 className='text-sm text-black/50'>Legian, Kuta, Bali, Indonesia</h1>
+                    <h1 className='text-sm text-black/50'>{hotel.address}</h1>
                     <Separator orientation="vertical" className="mx-4 h-6" />
                     <Link href="/" className='text-sm text-[#FE6927]'>Show on map</Link>
                     <Separator orientation="vertical" className="mx-4 h-6" />
@@ -117,14 +148,14 @@ export default function Page({ params }: { params: { hotelName: string } }) {
                 >
                     {/* Main Image */}
                     <ResizablePanel defaultSize={70} className="flex-grow">
-                        <Image src={main1} alt='Main' className='h-full w-full object-cover rounded-xl' />
+                        <Image src={hotel.images[0].url} alt='Main' width={700} height={400} className='h-full w-full object-cover rounded-xl' />
                     </ResizablePanel>
                     <ResizableHandle disabled className="bg-white" />
                     {/* Side Image*/}
                     <ResizablePanel defaultSize={30} className="flex-grow ml-4">
-                        <Image src={side1} alt='Main' className='lg:h-[175px] 2xl:h-[215px] w-full object-cover rounded-xl mb-2' />
-                        <Image src={side2} alt='Main' className='lg:h-[175px] 2xl:h-[215px] w-full object-cover rounded-xl mb-2' />
-                        <Image src={side3} alt='Main' className='lg:h-[175px] 2xl:h-[215px] w-full object-cover rounded-xl' />
+                        <Image src={hotel.images[1].url} alt='Main' width={300} height={200} className='lg:h-[175px] 2xl:h-[215px] w-full object-cover rounded-xl mb-2' />
+                        <Image src={hotel.images[2].url} alt='Main' width={300} height={200} className='lg:h-[175px] 2xl:h-[215px] w-full object-cover rounded-xl mb-2' />
+                        <Image src={hotel.images[3].url} alt='Main' width={300} height={200} className='lg:h-[175px] 2xl:h-[215px] w-full object-cover rounded-xl' />
                     </ResizablePanel>
                 </ResizablePanelGroup>
             </div>
@@ -138,12 +169,8 @@ export default function Page({ params }: { params: { hotelName: string } }) {
             </div>
             <div className="p-6 sm:p-12 md:p-16 lg:px-20 lg:py-4 mb-8 w-full">
                 <h1 className="font-semibold text-lg mb-6">Overview</h1>
-                <p className='font-normal text-sm text-black/80'>Brits Hotel Legian is highly recommended for backpackers who want to get an affordable stay yet comfortable at the same time.
-                    For you, travelers who wish to travel comfortably on a budget, Brits Hotel Legian is the perfect place to stay that provides decent facilities as well as great services.
-                    From business event to corporate gathering, Brits Hotel Legian provides complete services and facilities that you and your colleagues need.
-                    <br /><br />
-                    Have fun with various entertaining facilities for you and the whole family at Brits Hotel Legian, a wonderful accommodation for your family holiday.
-                    This hotel is the perfect choice for couples seeking a romantic getaway or a honeymoon retreat. Enjoy the most memorable nights with your loved one by staying at Brits Hotel Legian.</p>
+                <p className='font-normal text-sm text-black/80'>{hotel.overview}
+                </p>
             </div>
             <div className="p-6 sm:p-12 md:p-16 lg:px-20 lg:py-15 w-full bg-[#FE6927]/5">
                 <h1 className="font-semibold text-lg mb-8 mt-[-10px]">Property Higlight</h1>
@@ -197,7 +224,11 @@ export default function Page({ params }: { params: { hotelName: string } }) {
                 </div>
             </div>
             <div className="p-6 sm:p-12 md:p-16 lg:px-20 lg:py-15 w-full mt-[-40px]">
-                <HotelLocation />
+                <HotelLocation
+                    address={hotel.address}
+                    longitude={hotel.longitude}
+                    latitude={hotel.latitude}
+                />
             </div>
             <div className="p-6 sm:p-12 md:p-16 lg:px-20 lg:py-15 w-full mt-[-40px]">
                 <HotelReview />

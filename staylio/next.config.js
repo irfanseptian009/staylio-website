@@ -3,7 +3,7 @@ module.exports = {
       return [
         {
           source: '/api/products',
-          destination: 'https://staylio-admin.vercel.app/api/b1924dd5-a5ca-4b13-858b-758d38d3bfb7/products',
+          destination: 'https://admin-staylio.vercel.app/api/f42361f8-6ca5-484e-be8c-bc94ae612b79/products',
         },
       ]
     },

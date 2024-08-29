@@ -31,7 +31,7 @@ const HotelCard = ({ hotel }: { hotel: HotelType }) => {
                                 <StarIcon key={i} className="w-5 h-5" />
                             ))}
                         </div>
-                        <p className="text-sm text-gray-600 mt-2">{hotel.city}</p>
+                        <p className="text-sm text-gray-600 mt-2">{hotel.address}</p>
                         <div className='flex items-center mt-10 justify-between lg:gap-[320px] 2xl:gap-[595px]'>
                             <div className='flex items-center gap-4'>
                                 <p className="text-xl font-bold text-[#FE6927] w-[132px]">
@@ -39,7 +39,7 @@ const HotelCard = ({ hotel }: { hotel: HotelType }) => {
                                 </p>
                                 <p className="text-sm text-gray-600">/ Night</p>
                             </div>
-                            <Link href={"/"}>
+                            <Link href={`/hotel/${encodeURIComponent(hotel.name)}`}>
                                 <button className="bg-[#FE6927] text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-[#FE6927] transition duration-300 ease-in-out">
                                     Choose rooms
                                 </button>

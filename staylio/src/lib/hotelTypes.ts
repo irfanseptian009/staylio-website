@@ -21,8 +21,9 @@ export interface Hotel {
     categoryId: string;
     name: string;
     price: string;
-    longitude: string;
-    latitude: string;
+    address: string;
+    longitude: number;
+    latitude: number;
     city: string;
     overview: string;
     capacity: string;

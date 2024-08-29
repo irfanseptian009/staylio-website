@@ -1,52 +1,28 @@
-"use client"
-
 import * as React from "react"
-import { Globe } from "lucide-react" // Use the Globe icon to mimic the image
-import { Check } from "lucide-react"
 import { MapPinIcon } from '@heroicons/react/20/solid';
-
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 
 const destinations = [
-  {
-    value: "bali",
-    label: "Bali, Indonesia",
-  },
-  {
-    value: "jakarta",
-    label: "Jakarta, Indonesia",
-  },
-  {
-    value: "palembang",
-    label: "Palembang, Indonesia",
-  },
-  {
-    value: "bandung",
-    label: "Bandung, Indonesia",
-  },
-  {
-    value: "medan",
-    label: "Medan, Indonesia",
-  },
+  { value: "bali", label: "Bali, Indonesia" },
+  { value: "jakarta", label: "Jakarta, Indonesia" },
+  { value: "palembang", label: "Palembang, Indonesia" },
+  { value: "bandung", label: "Bandung, Indonesia" },
+  { value: "medan", label: "Medan, Indonesia" },
 ]
 
-export function LocComboBox() {
+export function LocComboBox({ onSelectDestination }: { onSelectDestination: (value: string) => void }) {
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState("")
+
+  const handleSelect = (currentValue: string) => {
+    const selectedValue = currentValue === value ? "" : currentValue
+    setValue(selectedValue)
+    setOpen(false)
+    onSelectDestination(selectedValue) 
+  }
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -73,17 +49,14 @@ export function LocComboBox() {
                 <CommandItem
                   key={destination.value}
                   value={destination.value}
-                  onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue)
-                    setOpen(false)
-                  }}
+                  onSelect={handleSelect}
                 >
-                  <Check
+                  <MapPinIcon
                     className={cn(
                       "mr-2 h-4 w-4",
                       value === destination.value ? "opacity-100" : "opacity-0"
                     )}
-                    style={{ color: "#FF5722" }} // Orange color for the check mark when selected
+                    style={{ color: "#FF5722" }}
                   />
                   {destination.label}
                 </CommandItem>

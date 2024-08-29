@@ -7,10 +7,9 @@ import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
-} from "@/components/ui/resizable"
-import { Separator } from "@/components/ui/separator"
+} from "@/components/ui/resizable";
+import { Separator } from "@/components/ui/separator";
 import Pagination from '@mui/material/Pagination';
-import Stack from '@mui/material/Stack';
 import { ListBulletIcon, Squares2X2Icon } from '@heroicons/react/20/solid';
 import React, { useEffect, useState } from "react";
 import SidebarFilter from "@/components/(sidebarFilter)/SidebarFilter";
@@ -18,112 +17,34 @@ import HotelCard from "@/components/HotelCard";
 import { Hotel } from "@/lib/hotelTypes";
 
 export default function Home() {
-  const [starValue, setStarValue] = React.useState<number | null>(2);
-  const [priceRangeValue, setPriceRangeValue] = React.useState<number[]>([300000, 600000]);
-  const [discount, setDiscount] = React.useState<number>(45);
-
-  // const hotels = [
-  //   {
-  //     name: 'Brits Hotel Legian',
-  //     rating: 5,
-  //     address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
-  //     price: 347107,
-  //     imageUrl: '/hotel1.png',
-  //     url: '/hotel/brits-hotel-legian',
-  //   },
-  //   {
-  //     name: 'Four Star by Trans Hotel',
-  //     rating: 5,
-  //     address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
-  //     price: 507107,
-  //     imageUrl: '/hotel2.png',
-  //     url: '/hotel/brits-hotel-legian',
-  //   },
-  //   {
-  //     name: 'Atanaya Kuta Bali',
-  //     rating: 5,
-  //     address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
-  //     price: 400107,
-  //     imageUrl: '/hotel3.png',
-  //     url: '/hotel/brits-hotel-legian',
-  //   },
-  //   {
-  //     name: 'New Kuta Hotel by Lorin',
-  //     rating: 5,
-  //     address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
-  //     price: 910107,
-  //     imageUrl: '/hotel4.png',
-  //     url: '/hotel/brits-hotel-legian',
-  //   },
-  //   {
-  //     name: 'Primera Hotel Seminyak',
-  //     rating: 5,
-  //     address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
-  //     price: 253202,
-  //     imageUrl: '/hotel5.png',
-  //     url: '/hotel/brits-hotel-legian',
-  //   },
-  //   {
-  //     name: 'HARRIS Hotel Kuta Galleria',
-  //     rating: 5,
-  //     address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
-  //     price: 550413,
-  //     imageUrl: '/hotel6.png',
-  //     url: '/hotel/brits-hotel-legian',
-  //   },
-  //   {
-  //     name: 'Sovereign Bali Hotel',
-  //     rating: 5,
-  //     address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
-  //     price: 681405,
-  //     imageUrl: '/hotel7.png',
-  //     url: '/hotel/brits-hotel-legian',
-  //   },
-  //   {
-  //     name: 'The Kanjeng Hotel Legian',
-  //     rating: 5,
-  //     address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
-  //     price: 297625,
-  //     imageUrl: '/hotel8.png',
-  //     url: '/hotel/brits-hotel-legian',
-  //   },
-  //   {
-  //     name: 'The Kanjeng Resort Ubud',
-  //     rating: 5,
-  //     address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
-  //     price: 710744,
-  //     imageUrl: '/hotel9.png',
-  //     url: '/hotel/brits-hotel-legian',
-  //   },
-  //   {
-  //     name: 'Aryaduta Bali',
-  //     rating: 5,
-  //     address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
-  //     price: 2507107,
-  //     imageUrl: '/hotel10.png',
-  //     url: '/hotel/brits-hotel-legian',
-  //   },
-  // ];
-
+  const [starValue, setStarValue] = useState<number | null>(2);
+  const [priceRangeValue, setPriceRangeValue] = useState<number[]>([300000, 600000]);
+  const [discount, setDiscount] = useState<number>(45);
   const [hotels, setHotels] = useState<Hotel[]>([]);
+  const [filteredHotels, setFilteredHotels] = useState<Hotel[]>([]);
 
   useEffect(() => {
     const fetchHotels = async () => {
       try {
-          const response = await fetch('/api/products');
-          const data = await response.json();
-          setHotels(data);
+        const response = await fetch('/api/products');
+        const data = await response.json();
+        setHotels(data);
+        setFilteredHotels(data); 
       } catch (error) {
-          console.error('Error fetching hotels:', error);
+        console.error('Error fetching hotels:', error);
       }
-  };
+    };
 
     fetchHotels();
   }, []);
 
+  const handleFilteredHotels = (filtered: Hotel[]) => {
+    setFilteredHotels(filtered);
+  };
+
   return (
     <main className="bg-white">
-      {/* Hero Section*/}
+      {/* Hero Section */}
       <div className="p-6 sm:p-12 md:p-16 lg:px-18 lg:py-4 h-[250px] sm:h-[350px] md:h-[450px] w-full 2xl:h-[650px] bg-white flex items-center justify-center overflow-hidden">
         <div className="relative w-full h-full">
           <div className="bg-black/90 absolute w-full h-full rounded-3xl" />
@@ -150,7 +71,7 @@ export default function Home() {
         </div>
         {/* Search Box */}
         <div className="absolute left-0 right-0 lg:bottom-[25px] 2xl:bottom-[135px] mx-auto z-20 w-full 2xl:max-w-[1550px] lg:max-w-[1200px]">
-          <SearchBox />
+          <SearchBox hotels={hotels} onFilteredHotels={handleFilteredHotels} />
         </div>
       </div>
       {/* Search Result Bar */}
@@ -160,8 +81,8 @@ export default function Home() {
             <div className="font-light mr-20">Search Result</div>
             <Separator orientation="vertical" />
             <div className="flex gap-4">
-              <p className="font-bold">586</p>
-              <p>Hotels found in Bali</p>
+              <p className="font-bold">{filteredHotels.length}</p>
+              <p>Hotels found in {filteredHotels.length > 0 ? filteredHotels[0].city : 'Selected Location'}</p>
             </div>
           </div>
           <div className="flex gap-4">
@@ -196,7 +117,7 @@ export default function Home() {
           {/* Main Card Content */}
           <ResizablePanel defaultSize={78} className="flex-grow">
             <div className="flex flex-col gap-4">
-              {hotels.map((hotel) => (
+              {filteredHotels.map((hotel) => (
                 <HotelCard key={hotel.id} hotel={hotel} />
               ))}
             </div>

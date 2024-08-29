@@ -28,6 +28,8 @@ import { Hotel as HotelType } from '@/lib/hotelTypes';
 export default function Page({ params }: { params: { hotelName: string } }) {
     const [hotel, setHotel] = useState<HotelType | null>(null);
     const [starValue, setStarValue] = React.useState<number | null>(4);
+    const [hotels, setHotels] = useState<HotelType[]>([]);
+    const [filteredHotels, setFilteredHotels] = useState<HotelType[]>([]);
 
     const rooms = [
         {
@@ -100,12 +102,12 @@ export default function Page({ params }: { params: { hotelName: string } }) {
                 const data = await response.json();
                 const decodedHotelName = decodeURIComponent(params.hotelName);
                 const hotelData = data.find((hotel: HotelType) => hotel.name.trim().toLowerCase() === decodedHotelName.trim().toLowerCase());
-    
+
                 if (!hotelData) {
                     console.error("Hotel not found");
                     return;
                 }
-    
+
                 setHotel(hotelData);
             } catch (error) {
                 console.error('Error fetching hotel details:', error);
@@ -118,6 +120,9 @@ export default function Page({ params }: { params: { hotelName: string } }) {
         return <div>Loading...</div>;
     }
 
+    const handleFilteredHotels = (filtered: HotelType[]) => {
+        setFilteredHotels(filtered);
+      };
 
     return (
         <div>
@@ -128,7 +133,7 @@ export default function Page({ params }: { params: { hotelName: string } }) {
             {/* Search Box */}
             <div className="p-6 sm:p-12 md:p-16 lg:px-18 lg:py-4 lg:h-[150px] bg-white flex items-center justify-center overflow-hidden">
                 <div className="absolute left-0 right-0 lg:bottom-[280px] 2xl:bottom-[570px] mx-auto z-20 w-full 2xl:max-w-[1550px] lg:max-w-[1200px]">
-                    <SearchBox />
+                    <SearchBox hotels={hotels} onFilteredHotels={handleFilteredHotels} />
                 </div>
             </div>
             <div className="p-6 sm:p-12 md:p-16 lg:px-20 lg:py-6 w-full">
@@ -167,7 +172,7 @@ export default function Page({ params }: { params: { hotelName: string } }) {
                     <Button variant={"ghost"} className='w-[25%] hover:bg-[#FE6927] hover:text-white '>Rate / Reviews</Button>
                 </div>
             </div>
-            <div className="p-6 sm:p-12 md:p-16 lg:px-20 lg:py-4 mb-8 w-full">
+            <div id="overview" className="p-6 sm:p-12 md:p-16 lg:px-20 lg:py-4 mb-8 w-full">
                 <h1 className="font-semibold text-lg mb-6">Overview</h1>
                 <p className='font-normal text-sm text-black/80'>{hotel.overview}
                 </p>

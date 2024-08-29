@@ -12,97 +12,114 @@ import { Separator } from "@/components/ui/separator"
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { ListBulletIcon, Squares2X2Icon } from '@heroicons/react/20/solid';
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SidebarFilter from "@/components/(sidebarFilter)/SidebarFilter";
 import HotelCard from "@/components/HotelCard";
+import { Hotel } from "@/lib/hotelTypes";
 
 export default function Home() {
   const [starValue, setStarValue] = React.useState<number | null>(2);
   const [priceRangeValue, setPriceRangeValue] = React.useState<number[]>([300000, 600000]);
   const [discount, setDiscount] = React.useState<number>(45);
 
-  const hotels = [
-    {
-      name: 'Brits Hotel Legian',
-      rating: 5,
-      address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
-      price: 347107,
-      imageUrl: '/hotel1.png',
-      url: '/hotel/brits-hotel-legian',
-    },
-    {
-      name: 'Four Star by Trans Hotel',
-      rating: 5,
-      address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
-      price: 507107,
-      imageUrl: '/hotel2.png',
-      url: '/hotel/brits-hotel-legian',
-    },
-    {
-      name: 'Atanaya Kuta Bali',
-      rating: 5,
-      address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
-      price: 400107,
-      imageUrl: '/hotel3.png',
-      url: '/hotel/brits-hotel-legian',
-    },
-    {
-      name: 'New Kuta Hotel by Lorin',
-      rating: 5,
-      address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
-      price: 910107,
-      imageUrl: '/hotel4.png',
-      url: '/hotel/brits-hotel-legian',
-    },
-    {
-      name: 'Primera Hotel Seminyak',
-      rating: 5,
-      address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
-      price: 253202,
-      imageUrl: '/hotel5.png',
-      url: '/hotel/brits-hotel-legian',
-    },
-    {
-      name: 'HARRIS Hotel Kuta Galleria',
-      rating: 5,
-      address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
-      price: 550413,
-      imageUrl: '/hotel6.png',
-      url: '/hotel/brits-hotel-legian',
-    },
-    {
-      name: 'Sovereign Bali Hotel',
-      rating: 5,
-      address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
-      price: 681405,
-      imageUrl: '/hotel7.png',
-      url: '/hotel/brits-hotel-legian',
-    },
-    {
-      name: 'The Kanjeng Hotel Legian',
-      rating: 5,
-      address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
-      price: 297625,
-      imageUrl: '/hotel8.png',
-      url: '/hotel/brits-hotel-legian',
-    },
-    {
-      name: 'The Kanjeng Resort Ubud',
-      rating: 5,
-      address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
-      price: 710744,
-      imageUrl: '/hotel9.png',
-      url: '/hotel/brits-hotel-legian',
-    },
-    {
-      name: 'Aryaduta Bali',
-      rating: 5,
-      address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
-      price: 2507107,
-      imageUrl: '/hotel10.png',
-      url: '/hotel/brits-hotel-legian',
-    },
-  ];
+  // const hotels = [
+  //   {
+  //     name: 'Brits Hotel Legian',
+  //     rating: 5,
+  //     address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
+  //     price: 347107,
+  //     imageUrl: '/hotel1.png',
+  //     url: '/hotel/brits-hotel-legian',
+  //   },
+  //   {
+  //     name: 'Four Star by Trans Hotel',
+  //     rating: 5,
+  //     address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
+  //     price: 507107,
+  //     imageUrl: '/hotel2.png',
+  //     url: '/hotel/brits-hotel-legian',
+  //   },
+  //   {
+  //     name: 'Atanaya Kuta Bali',
+  //     rating: 5,
+  //     address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
+  //     price: 400107,
+  //     imageUrl: '/hotel3.png',
+  //     url: '/hotel/brits-hotel-legian',
+  //   },
+  //   {
+  //     name: 'New Kuta Hotel by Lorin',
+  //     rating: 5,
+  //     address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
+  //     price: 910107,
+  //     imageUrl: '/hotel4.png',
+  //     url: '/hotel/brits-hotel-legian',
+  //   },
+  //   {
+  //     name: 'Primera Hotel Seminyak',
+  //     rating: 5,
+  //     address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
+  //     price: 253202,
+  //     imageUrl: '/hotel5.png',
+  //     url: '/hotel/brits-hotel-legian',
+  //   },
+  //   {
+  //     name: 'HARRIS Hotel Kuta Galleria',
+  //     rating: 5,
+  //     address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
+  //     price: 550413,
+  //     imageUrl: '/hotel6.png',
+  //     url: '/hotel/brits-hotel-legian',
+  //   },
+  //   {
+  //     name: 'Sovereign Bali Hotel',
+  //     rating: 5,
+  //     address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
+  //     price: 681405,
+  //     imageUrl: '/hotel7.png',
+  //     url: '/hotel/brits-hotel-legian',
+  //   },
+  //   {
+  //     name: 'The Kanjeng Hotel Legian',
+  //     rating: 5,
+  //     address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
+  //     price: 297625,
+  //     imageUrl: '/hotel8.png',
+  //     url: '/hotel/brits-hotel-legian',
+  //   },
+  //   {
+  //     name: 'The Kanjeng Resort Ubud',
+  //     rating: 5,
+  //     address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
+  //     price: 710744,
+  //     imageUrl: '/hotel9.png',
+  //     url: '/hotel/brits-hotel-legian',
+  //   },
+  //   {
+  //     name: 'Aryaduta Bali',
+  //     rating: 5,
+  //     address: '3730 Las Vegas Boulevard South, Las Vegas, NV, US',
+  //     price: 2507107,
+  //     imageUrl: '/hotel10.png',
+  //     url: '/hotel/brits-hotel-legian',
+  //   },
+  // ];
+
+  const [hotels, setHotels] = useState<Hotel[]>([]);
+
+  useEffect(() => {
+    const fetchHotels = async () => {
+      try {
+          const response = await fetch('/api/products');
+          const data = await response.json();
+          setHotels(data);
+      } catch (error) {
+          console.error('Error fetching hotels:', error);
+      }
+  };
+
+    fetchHotels();
+  }, []);
 
   return (
     <main className="bg-white">
@@ -179,8 +196,8 @@ export default function Home() {
           {/* Main Card Content */}
           <ResizablePanel defaultSize={78} className="flex-grow">
             <div className="flex flex-col gap-4">
-              {hotels.map((hotel, index) => (
-                <HotelCard key={index} hotel={hotel} />
+              {hotels.map((hotel) => (
+                <HotelCard key={hotel.id} hotel={hotel} />
               ))}
             </div>
             <div className="flex justify-center p-10">
@@ -192,11 +209,11 @@ export default function Home() {
                 sx={{
                   '& .MuiPaginationItem-root': {
                     color: 'black',
-                    borderColor: 'white', 
+                    borderColor: 'white',
                   },
                   '& .MuiPaginationItem-page.Mui-selected': {
-                    backgroundColor: 'white', 
-                    borderColor: '#FE6927', 
+                    backgroundColor: 'white',
+                    borderColor: '#FE6927',
                     color: 'black',
                   },
                 }}

@@ -26,8 +26,8 @@ export default function SearchBox({ hotels, onFilteredHotels }: { hotels: Hotel[
 
   return (
     <div className="lg:w-full lg:h-[210px] 2xl:h-[220px] bg-white shadow-lg p-4 rounded-3xl py-8 px-12">
-      <div className="flex lg:space-x-[700px] 2xl:space-x-[900px]">
-        <div className="flex gap-6 items-center">
+      <div className="flex lg:space-x-[540px] 2xl:space-x-[900px]">
+        <div className="flex w-96 gap-6 items-center">
           <MapIcon className="w-6 h-6 text-[#FE6927]" />
           <h1>Hotel and Resorts in {selectedLocation || "Selected Location"}</h1>
         </div>

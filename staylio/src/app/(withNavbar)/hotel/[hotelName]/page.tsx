@@ -158,9 +158,9 @@ export default function Page({ params }: { params: { hotelName: string } }) {
                     <ResizableHandle disabled className="bg-white" />
                     {/* Side Image*/}
                     <ResizablePanel defaultSize={30} className="flex-grow ml-4">
-                        <Image src={hotel.images[1].url} alt='Main' width={300} height={200} className='lg:h-[175px] 2xl:h-[215px] w-full object-cover rounded-xl mb-2' />
-                        <Image src={hotel.images[2].url} alt='Main' width={300} height={200} className='lg:h-[175px] 2xl:h-[215px] w-full object-cover rounded-xl mb-2' />
-                        <Image src={hotel.images[3].url} alt='Main' width={300} height={200} className='lg:h-[175px] 2xl:h-[215px] w-full object-cover rounded-xl' />
+                        <Image src={hotel.images[1].url} alt='Main' width={300} height={200} className='lg:h-[175px] 2xl:h-[228px] w-full object-cover rounded-xl mb-2' />
+                        <Image src={hotel.images[2].url} alt='Main' width={300} height={200} className='lg:h-[175px] 2xl:h-[228px] w-full object-cover rounded-xl mb-2' />
+                        <Image src={hotel.images[3].url} alt='Main' width={300} height={200} className='lg:h-[175px] 2xl:h-[228px] w-full object-cover rounded-xl' />
                     </ResizablePanel>
                 </ResizablePanelGroup>
             </div>

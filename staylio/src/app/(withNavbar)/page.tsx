@@ -22,6 +22,8 @@ export default function Home() {
   const [discount, setDiscount] = useState<number>(45);
   const [hotels, setHotels] = useState<Hotel[]>([]);
   const [filteredHotels, setFilteredHotels] = useState<Hotel[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const hotelsPerPage = 10;
 
   useEffect(() => {
     const fetchHotels = async () => {
@@ -29,7 +31,7 @@ export default function Home() {
         const response = await fetch('/api/products');
         const data = await response.json();
         setHotels(data);
-        setFilteredHotels(data); 
+        setFilteredHotels(data);
       } catch (error) {
         console.error('Error fetching hotels:', error);
       }
@@ -40,7 +42,16 @@ export default function Home() {
 
   const handleFilteredHotels = (filtered: Hotel[]) => {
     setFilteredHotels(filtered);
+    setCurrentPage(1);
   };
+
+  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
+    setCurrentPage(page);
+  };
+
+  const indexOfLastHotel = currentPage * hotelsPerPage;
+  const indexOfFirstHotel = indexOfLastHotel - hotelsPerPage;
+  const currentHotels = filteredHotels.slice(indexOfFirstHotel, indexOfLastHotel);
 
   return (
     <main className="bg-white">
@@ -117,13 +128,15 @@ export default function Home() {
           {/* Main Card Content */}
           <ResizablePanel defaultSize={78} className="flex-grow">
             <div className="flex flex-col gap-4">
-              {filteredHotels.map((hotel) => (
+              {currentHotels.map((hotel) => (
                 <HotelCard key={hotel.id} hotel={hotel} />
               ))}
             </div>
             <div className="flex justify-center p-10">
               <Pagination
-                count={10}
+                count={Math.ceil(filteredHotels.length / hotelsPerPage)}
+                page={currentPage}
+                onChange={handlePageChange}
                 shape="rounded"
                 variant="outlined"
                 size="large"

@@ -30,6 +30,10 @@ export default function Page({ params }: { params: { hotelName: string } }) {
     const [starValue, setStarValue] = React.useState<number | null>(4);
     const [hotels, setHotels] = useState<HotelType[]>([]);
     const [filteredHotels, setFilteredHotels] = useState<HotelType[]>([]);
+    const URL = `${window.location.origin}/products/${params.hotelName}`;
+    const telp = process.env.NEXT_PUBLIC_TELP;
+    const pesan = `Halo saya telah mengunjungi staylio, dan ingin booking ${params.hotelName}, dengan link: ${URL}`;
+    const link = `https://wa.me/${telp}?text=${pesan}`;
 
     const rooms = [
         {
@@ -219,7 +223,7 @@ export default function Page({ params }: { params: { hotelName: string } }) {
                 </div>
                 <div className="flex flex-col gap-4 ml-[-10px]">
                     {rooms.map((room, index) => (
-                        <RoomCard key={index} room={room} />
+                        <RoomCard key={index} room={room} waLink={link} />
                     ))}
                 </div>
             </div>

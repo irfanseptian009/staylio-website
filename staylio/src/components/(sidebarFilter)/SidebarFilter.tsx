@@ -35,7 +35,7 @@ export default function SidebarFilter({
     return (
         <div className="flex flex-col gap-9 px-1 h-full w-full items-start justify-start">
             {/* Map Preview Section */}
-            <div className="h-[268px] w-[254px] rounded-xl">
+            <div className="h-[200px] w-[254px] rounded-xl">
                 <MapHome />
             </div>
             {/* Price Range */}

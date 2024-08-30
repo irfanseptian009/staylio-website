@@ -15,7 +15,12 @@ interface Room {
     url: string;
 }
 
-const RoomCard = ({ room }: { room: Room }) => {
+interface RoomCardProps {
+    room: Room;
+    waLink: string;
+}
+
+const RoomCard = ({ room, waLink }: RoomCardProps) => {
     return (
         <div className="relative flex items-center p-4 hover:border-orange-500 border border-transparent rounded-lg group hover:shadow-xl transition duration-300 ease-in-out">
             {/* Image Section */}
@@ -60,7 +65,7 @@ const RoomCard = ({ room }: { room: Room }) => {
                     Rp {room.discountPrice.toLocaleString('id-ID')}
                 </p>
                 <p className="text-xs text-gray-500 mt-1">Include taxes & fees</p>
-                <Link href={room.url}>
+                <Link href={waLink} target="_blank" rel="noopener noreferrer">
                     <button className="bg-[#FE6927] text-white text-sm font-semibold px-6 py-2 mt-4 rounded-lg hover:bg-[#FE6927]/90 transition duration-300 ease-in-out">
                         Choose rooms
                     </button>

@@ -35,7 +35,8 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
-admin panel: ![Uploading {15FD062B-5554-4517-84E3-04944504FC81}.png…]()
+admin panel: ![{ADD23F84-905E-411D-A904-D3156F992E9F}](https://github.com/user-attachments/assets/5b96a8af-f542-4d37-b745-7929777f19be)
+
 staylio: ![staylio](https://github.com/user-attachments/assets/009a58eb-6ac2-4934-8668-04163fdc3c4e)
 
 
